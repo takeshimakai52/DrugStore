@@ -7,6 +7,7 @@
   <title>マスターメンテナンスログイン</title>
 </head>
 <body>
+  <form action="yamada.php" method="POST">
   <header>
 <h1>Drag Takayama</h1>
 <a href="" class="frontlink">フロントエンド</a>
@@ -23,5 +24,6 @@
 </p>
 <input type="submit" value="ログイン" class="loginbutton">
 </div>
+</form>
 </body>
 </html>
