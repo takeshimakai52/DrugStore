@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet"type="text/css"  href="kari.css">
+    <link rel="stylesheet"type="text/css"  href="itemnew.css">
+    <link rel="stylesheet"type="text/css"  href="normalize.css">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="vali.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="icon">
+        drug takayama
+      </div>
+      <div class="frontlink">
+        <a href="" class="frontbtn">
+          フロントエンド
+        </a>
+      </div>
+      <div class="logoutbtn">
+        <a href="" class="logout">
+          ログアウト
+        </a>
+      </div>
+    </div>
+    
+    <div class="ohako">
+      <div class="sidebar">
+        <ul class="menu">
+          <li>
+            <a href="" class="listmenu">商品一覧</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href=""class="listmenu">商品登録</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="" class="listmenu">ジャンル管理</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="" class="listmenu">メーカー管理</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="" class="listmenu">ブランド管理</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="" class="listmenu">売価管理</a>
+          </li>
+          <div class="kasen"></div>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="maintitle">
+          　商品登録
+        </div>
+        <div class="maincontents">
+          <div class="haku"></div>
+          <div class="touroku">
+            <div class="touroku_head">
+              商品情報
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                商品No
+              </div>
+              <div class="rowright">
+                2
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                商品名
+              </div>
+              <div class="rowright">
+                <input type="text" class="textrightbox">
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                通常価格
+              </div>
+              <div class="rowright">
+                <input type="text" class="textrightbox">
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                ジャンル
+              </div>
+              <div class="rowright">
+                <select name="genre" class="textrightbox">
+                  <option value="">　　　　　　　　 　　　　 </option>
+                  <option value="1">ミネラル</option>
+                  <option value="2">コスメ</option>
+                  <option value="3">健康食品</option>
+                </select>
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                メーカー
+              </div>
+              <div class="rowright">
+                <select name="maker" class="textrightbox">
+                  <option value="">　　　　　　　　 　　　　 </option>
+                  <option value="1">大塚製薬</option>
+                  <option value="2">DHC</option>
+                  <option value="3">ファンケル</option>
+                </select>
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                ブランド
+              </div>
+              <div class="rowright">
+                <select name="brand" class="textrightbox">
+                  <option value="">　　　　　　　　 　　　　 </option>
+                  <option value="1">ネイチャーメイド</option>
+                  <option value="2">DHC</option>
+                  <option value="3">FANKEL</option>
+                  <option value="4">ULOS</option>
+                  <option value="5">インナーシグナル</option>
+                  <option value="6">カロリーメイト</option>
+                  <option value="7">大塚製薬</option>
+                </select>
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                商品画像
+              </div>
+              <div class="rowright">
+                <input type="file" name="pic">
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                成分
+              </div>
+              <div class="rowright">
+                <textarea name="seibun" rows="5" class="textrightbox" ></textarea>
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                商品説明
+              </div>
+              <div class="rowright">
+                <textarea name="description" rows="5" class="textrightbox" ></textarea>
+              </div>
+            </div>
+            <div class="tourokubtn">
+              <button type="submit" name="itemsearch" class="itemserch">登録</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
