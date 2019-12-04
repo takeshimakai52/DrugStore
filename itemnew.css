@@ -1,0 +1,30 @@
+.haku{
+  height: 30px;
+}
+.touroku{
+  background-color: white;
+  width: 80%;
+  padding: 10px 0 20px 0;
+  margin-left:20px; 
+}
+.touroku_head{
+  border-bottom: solid 1px #999999;
+}
+.syouhinrow{
+  display: flex;
+  margin-top:20px; 
+}
+.rowleft{
+  margin-left:20px; 
+  width: 200px;
+}
+.rowright{
+  width: 600px;
+}
+.textrightbox{
+  width: 580px;
+}
+.tourokubtn{
+  margin-top:50px;
+  margin-left:300px;  
+}
