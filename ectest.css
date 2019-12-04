@@ -1,0 +1,22 @@
+header{
+  weight: 100%;
+  height: 100px;
+  background-color: #248;
+  color: white;
+}
+h1{
+  float: left;
+}
+a.frontlink{
+  float: right;
+  padding: 40px 50px;
+  color: #FFF
+}
+div.login{
+  text-align: center;
+  padding-top: 50px;
+}
+input.loginbutton{
+  background-color: #248;
+  color: #FFF;
+}
