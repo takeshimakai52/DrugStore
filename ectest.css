@@ -10,7 +10,10 @@ h1{
 a.frontlink{
   float: right;
   padding: 40px 50px;
-  color: #FFF
+  color: white;
+}
+p.error{
+  color: red;
 }
 div.login{
   text-align: center;

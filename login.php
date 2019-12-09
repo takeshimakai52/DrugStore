@@ -59,7 +59,7 @@ foreach ($stmt as $row) {
   <div class="login">
     <p>DragStoreマスターメンテナンス</p>
     <form action="" method="POST">
-      <p><?php echo $errorMessage ?></p>
+      <p class="error"><?php echo $errorMessage ?></p>
       <p>
         ログインID
         <input type="text" name="account" value="">
