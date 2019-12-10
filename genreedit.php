@@ -12,6 +12,11 @@
  foreach( $res as $value ) {
    $a="$value[id]";
   }
+
+  $editid = filter_input(INPUT_POST, 'editid');
+  $editname = filter_input(INPUT_POST, 'editname');
+  echo $editid;
+  echo $editname;
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,11 +78,11 @@
       </div>
       <div class="main">
         <div class="maintitle">
-          　ジャンル登録
+          　ジャンル編集
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="genreconfirm.php" method="post">
+          <form action="genreeditconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
                 ジャンル情報
@@ -87,7 +92,8 @@
                   ジャンルNo
                 </div>
                 <div class="rowright">
-                  <?= $a+1 ?>
+                  <?= $editid ?>
+                  <input type='hidden' name='id' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">
@@ -95,7 +101,7 @@
                   ジャンル名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
+                  <input type="text" class="textrightbox" name="genre" value="<?=$editname?>">
                 </div>
               </div>
               

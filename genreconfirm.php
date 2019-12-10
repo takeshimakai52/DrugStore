@@ -6,13 +6,11 @@
 				return;
 		}
 
-		// タイトル
 		$genre = filter_input(INPUT_POST, 'genre');
 		if ('' === $genre) {
 				throw new Exception('ジャンルは入力必須です。');
 		}
 
-		// データベースに登録
 		$sql2 = 'INSERT INTO `genre` (`id`,`name`) VALUES (NULL, :genre) ';
 		$arr = [];
 		$arr[':genre'] = $genre;
@@ -21,17 +19,12 @@
 
   try{
     $dbh=connect_db();
-    $sql = "SELECT * FROM genre order by id desc limit 1";
-		$res = $dbh->query($sql);
 		genre_upload();
 		
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,7 +86,7 @@
       </div>
       <div class="main">
         <div class="maintitle">
-          　商品登録
+          　ジャンル登録
         </div>
         <div class="maincontents">
 					<div class="haku"></div>

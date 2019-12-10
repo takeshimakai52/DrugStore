@@ -1,49 +1,90 @@
 <?php
   require 'common.php';
+  function genre_serch(){
+    $dbh=connect_db();
+    // if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
+    if($_POST["genreid"] != "" OR $_POST["genrename"] != ""){ 
+      $id = filter_input(INPUT_POST, 'genreid');
+      $name = filter_input(INPUT_POST, 'genrename');
+      // $statement = $dbh->prepare("SELECT * FROM genre WHERE id = '2' ");
+      // $sql = "SELECT * FROM genre WHERE id = $id OR name LIKE '%$name%";
+      // $res = $dbh->query($sql);
+      // $st = $dbh->prepare("SELECT * FROM genre WHERE id = ?");
+      // $res = $st->execute(array(2));
+
+      $query = "SELECT * FROM genre WHERE name like :value OR id = :id";
+      $stmt  = $dbh->prepare($query);
+      $stmt->bindValue(":value", '%'. $name .'%', PDO::PARAM_STR);
+      $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+      $stmt->execute();
+      // var_dump($stmt->fetchAll());
+      $serched=$stmt->fetchAll();
+      // var_dump($res);
+
+      // $stmt = $dbh->query("SELECT * FROM genre WHERE ID='".$_POST["genreid"] ."' OR Name LIKE  '%".$_POST["genrename"]."%')");
+      // var_dump($stmt);
+      // $statement->bindValue(':id',$_POST["genreid"]);
+      // $stmt=$statement->execute();
+      
+      foreach($serched as $value){
+        echo $value['name'];
+        echo $value['id'];
+      }
+    }else{
+      return;
+    }
+  }
+
 
   try{
-    $dbh=connect_db();
-    $sql = "SELECT * FROM genre";
-    $res = $dbh->query($sql);
-    // foreach( $res as $value ) {
-    //   echo "$value[name]<br>";
-    //   echo "$value[id]<br>";
-    // }
-    // foreach( $res as $value ){
+    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
+      $dbh=connect_db();
+    // if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
+      if($_POST["genreid"] != "" OR $_POST["genrename"] != ""){ 
+        $id = filter_input(INPUT_POST, 'genreid');
+        $name = filter_input(INPUT_POST, 'genrename');
+        // $statement = $dbh->prepare("SELECT * FROM genre WHERE id = '2' ");
+        // $sql = "SELECT * FROM genre WHERE id = $id OR name LIKE '%$name%";
+        // $res = $dbh->query($sql);
+        // $st = $dbh->prepare("SELECT * FROM genre WHERE id = ?");
+        // $res = $st->execute(array(2));
 
-      
-    //   echo "$value[id]";
-    //   echo "$value[name]";
-    // }
+        $query = "SELECT * FROM genre WHERE name like :value OR id = :id";
+        $stmt  = $dbh->prepare($query);
+        $stmt->bindValue(":value", '%'. $name .'%', PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        // var_dump($stmt->fetchAll());
+        $res=$stmt->fetchAll();
+        // var_dump($res);
+
+        // $stmt = $dbh->query("SELECT * FROM genre WHERE ID='".$_POST["genreid"] ."' OR Name LIKE  '%".$_POST["genrename"]."%')");
+        // var_dump($stmt);
+        // $statement->bindValue(':id',$_POST["genreid"]);
+        // $stmt=$statement->execute();
+        
+        // foreach($res as $value){
+        //   echo $value['name'];
+        //   echo $value['id'];
+        // }
+      }else{
+        return;
+      }
+    }else{
+      $dbh=connect_db();
+      $sql = "SELECT * FROM genre";
+      $res = $dbh->query($sql);
+    }
+    // genre_serch();
+    // $dbh=connect_db();
+    // $sql = "SELECT * FROM genre";
+    // $res = $dbh->query($sql);
+ 
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
-
-//  foreach( $res as $value ){
-      
-//   echo "$value[id]";
-//   echo "$value[name]";
-//  }
-
-  // try{
-  //   $dbh = new PDO("mysql:localhost; dbname=sample; charset=utf8", 'root', 'password');
-  //   $sql = "SELECT * FROM genre";
-
-  //   // SQL実行
-  //   $res = $dbh->query($sql);
   
-  //   // 取得したデータを出力
-  //   foreach( $res as $value ) {
-  //     echo "$value[name]<br>";
-  //   }
-  
-  // } catch(PDOException $e) {
-  //   echo $e->getMessage();
-  //   die();
-  // }
-  
-
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +127,7 @@
           </li>
           <div class="kasen"></div>
           <li>
-            <a href="" class="listmenu">ジャンル管理</a>
+            <a href="genre.php" class="listmenu">ジャンル管理</a>
           </li>
           <div class="kasen"></div>
           <li>
@@ -108,30 +149,33 @@
           　ジャンル管理
         </div>
         <div class="maincontents">
-          <form action="" method="get">
-            <div class="serchbox">
-              <div class="itemname">
+          
+        <form action="" method="post">
+          <div class="serchbox">
+            <div class="itemname">
+              <div class="itemname_title">
+                ジャンルNo
+              </div>
+              <input type="text" name="genreid"　value="">
+            </div>
+            <div class="genre">
+              <div class="genreselect">
                 <div class="itemname_title">
-                  ジャンルNo
+                  ジャンル名
                 </div>
-                <input type="text" name="itemname">
+                <input type="text" name="genrename">
               </div>
-              <div class="genre">
-                <div class="genreselect">
-                  <div class="itemname_title">
-                    ジャンル名
-                  </div>
-                  <input type="text" name="itemname">
-                </div>
-              </div>
-              <button type="submit" name="itemsearch" class="itemserch">検索</button>
             </div>
-          </form>
-          <form action="genrenew.php" method="post">
-            <div class="serchbox">
-              <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
-            </div>
-          </form>
+            <button type="submit" name="itemsearch" class="itemserch">検索</button>
+          </div>
+        </form>
+
+        <form action="genrenew.php" method="post">
+          <div class="serchbox">
+            <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
+          </div>
+        </form>
+
           <!-- <form action="genrenew.php" method="get"></form>
             <div class="serchbox">
               <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
@@ -161,13 +205,17 @@ foreach($res as $value):
                   <?= $value['name'] ?>
                 </div>
                 
-                <form action="" method="GET">
+                <form action="genreedit.php" method="post">
                   <div class="syouhinbtn1">
-                      <input type="submit" value="編集">
+                    <input type='hidden' name='editid' value='<?php echo $value["id"]; ?>'>
+                    <input type='hidden' name='editname' value='<?php echo $value["name"]; ?>'>
+                    <input type="submit" value="編集">
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="genredelete.php" method="post">
                   <div class="syouhinbtn">
+                    <input type='hidden' name='deleteid' value='<?php echo $value["id"]; ?>'>
+                    <input type='hidden' name='deletename' value='<?php echo $value["name"]; ?>'>
                     <input type="submit" value="削除">
                   </div>
                 </form>
