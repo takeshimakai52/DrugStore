@@ -1,17 +1,30 @@
 <?php
-  require 'common.php';
+	require 'common.php';
+	function genre_edit(){
+		// POSTではないとき何もしない
+		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+				return;
+		}
+
+		$genre = filter_input(INPUT_POST, 'genre');
+		if ('' === $genre) {
+				throw new Exception('ジャンルは入力必須です。');
+		}
+		$id = filter_input(INPUT_POST, 'id');
+		$dbh=connect_db();
+		$sql2 = "UPDATE maker SET name = :name WHERE id = :id";
+		$stmt = $dbh->prepare($sql2);
+		$params = array(':name' => "$genre", ':id' => "$id");
+		$stmt->execute($params);
+  }
+
   try{
-    $dbh=connect_db();
-    // $sql = "select * from present order by id desc limit 1;
-    $sql = "SELECT * FROM genre order by id desc limit 1";
-    $res = $dbh->query($sql);
+		genre_edit();
+		
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,38 +86,18 @@
       </div>
       <div class="main">
         <div class="maintitle">
-          　ジャンル登録
+          　メーカー編集
         </div>
         <div class="maincontents">
-          <div class="haku"></div>
-          <form action="genreconfirm.php" method="post">
-            <div class="touroku">
-              <div class="touroku_head">
-                ジャンル情報
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  ジャンルNo
-                </div>
-                <div class="rowright">
-                  <?= $a+1 ?>
-                </div>
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  ジャンル名
-                </div>
-                <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
-                </div>
-              </div>
-              
-
-              <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
-              </div>
-            </div>
-          </form>
+					<div class="haku"></div>
+					<div class="genreconfirm">
+            <div class="confirmmessage">
+							メーカーを編集しました
+						</div>
+						<div class="genrelink">
+						  <a href="maker.php">メーカー一覧にも戻る</a>
+						</div>
+					</div>
         </div>
 
       </div>

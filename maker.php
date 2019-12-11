@@ -1,75 +1,33 @@
 <?php
   require 'common.php';
-  function genre_serch($genreId, $genreName){
+  function maker_serch(){
     $dbh=connect_db();
     // if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-    if($genreId != "" OR $genreName != ""){ 
+    if($_POST["genreid"] != "" OR $_POST["genrename"] != ""){ 
       $id = filter_input(INPUT_POST, 'genreid');
       $name = filter_input(INPUT_POST, 'genrename');
-      
-      $sqlFlg = 0;
-      if(isset($id)){   //ジャンルIDのみパターン
-        $sqlFlg += 1;
-      }
-      if(isset($name)){ //ジャンル名のみパターン
-        $sqlFlg += 2;
-      }
-
-      $query = "SELECT * FROM genre WHERE ";
-      if($sqlFlg == 1){
-        $query .= ' id = :id';
-      }else if($sqlFlg == 2){
-        $query .= ' name LIKE :name'
-      }
-      else if($sqlFlg == 3){
-        $query .= ' id = :id AND name LIKE :name;';
-      }
-
-//      if($id) $query .= ' AND id = :id';
-//      if($name) $query .= ' AND name LIKE :name';
-
+      $query = "SELECT * FROM maker WHERE 1=1";
+      if($id) $query .= ' AND id = :id';
+      if($name) $query .= ' AND name LIKE :name';
       $stmt  = $dbh->prepare($query);
       if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
       if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
       $stmt->execute();
       $serched=$stmt->fetchAll();
-
-      // $statement = $dbh->prepare("SELECT * FROM genre WHERE id = '2' ");
-      // $sql = "SELECT * FROM genre WHERE id = $id OR name LIKE '%$name%";
-      // $res = $dbh->query($sql);
-      // $st = $dbh->prepare("SELECT * FROM genre WHERE id = ?");
-      // $res = $st->execute(array(2));
-
-      // $query = "SELECT * FROM genre WHERE name like :value OR id = :id";
-      // $stmt  = $dbh->prepare($query);
-      // $stmt->bindValue(":value", '%'. $name .'%', PDO::PARAM_STR);
-      // $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-      // $stmt->execute();
-      // $serched=$stmt->fetchAll();
-
-      // $stmt = $dbh->query("SELECT * FROM genre WHERE ID='".$_POST["genreid"] ."' OR Name LIKE  '%".$_POST["genrename"]."%')");
-      // var_dump($stmt);
-      // $statement->bindValue(':id',$_POST["genreid"]);
-      // $stmt=$statement->execute();
-      
-      // foreach($serched as $value){
-      //   echo $value['name'];
-      //   echo $value['id'];
-      // }
-
       return $serched;
+
     }else{
-      return false;
+      return;
     }
   }
 
 
   try{
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      $res = genre_serch($_POST["genreid"], $_POST["genrename"] );
+      $res = maker_serch();
     }else{
       $dbh=connect_db();
-      $sql = "SELECT * FROM genre";
+      $sql = "SELECT * FROM maker";
       $res = $dbh->query($sql);
     }
     // genre_serch();
@@ -128,7 +86,7 @@
           </li>
           <div class="kasen"></div>
           <li>
-            <a href="maker.php" class="listmenu">メーカー管理</a>
+            <a href="" class="listmenu">メーカー管理</a>
           </li>
           <div class="kasen"></div>
           <li>
@@ -143,7 +101,7 @@
       </div>
       <div class="main">
         <div class="maintitle">
-          　ジャンル管理
+          　メーカー管理
         </div>
         <div class="maincontents">
           
@@ -151,14 +109,14 @@
           <div class="serchbox">
             <div class="itemname">
               <div class="itemname_title">
-                ジャンルNo
+                メーカーNo
               </div>
               <input type="text" name="genreid"　value="">
             </div>
             <div class="genre">
               <div class="genreselect">
                 <div class="itemname_title">
-                  ジャンル名
+                  メーカー名
                 </div>
                 <input type="text" name="genrename">
               </div>
@@ -167,7 +125,7 @@
           </div>
         </form>
 
-        <form action="genrenew.php" method="post">
+        <form action="makernew.php" method="post">
           <div class="serchbox">
             <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
           </div>
@@ -186,7 +144,7 @@
 									No
 								</div>
 								<div class="labelname">
-									ジャンル名
+									メーカー名
 								</div>
 
               </div>
@@ -202,14 +160,14 @@ foreach($res as $value):
                   <?= $value['name'] ?>
                 </div>
                 
-                <form action="genreedit.php" method="post">
+                <form action="makeredit.php" method="post">
                   <div class="syouhinbtn1">
                     <input type='hidden' name='editid' value='<?php echo $value["id"]; ?>'>
                     <input type='hidden' name='editname' value='<?php echo $value["name"]; ?>'>
                     <input type="submit" value="編集">
                   </div>
                 </form>
-                <form action="genredelete.php" method="post">
+                <form action="makerdelete.php" method="post">
                   <div class="syouhinbtn">
                     <input type='hidden' name='deleteid' value='<?php echo $value["id"]; ?>'>
                     <input type='hidden' name='deletename' value='<?php echo $value["name"]; ?>'>

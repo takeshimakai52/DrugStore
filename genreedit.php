@@ -93,7 +93,7 @@
                 </div>
                 <div class="rowright">
                   <?= $editid ?>
-                  <input type='hidden' name='id' value='<?=$editid ?>'>
+                  <input type='hidden' name='editid' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">

@@ -3,7 +3,7 @@
   try{
     $dbh=connect_db();
     // $sql = "select * from present order by id desc limit 1;
-    $sql = "SELECT * FROM genre order by id desc limit 1";
+    $sql = "SELECT * FROM maker order by id desc limit 1";
     $res = $dbh->query($sql);
   }catch(PDOException $e) {
     echo $e->getMessage();
@@ -12,6 +12,9 @@
  foreach( $res as $value ) {
    $a="$value[id]";
   }
+
+  $editid = filter_input(INPUT_POST, 'editid');
+  $editname = filter_input(INPUT_POST, 'editname');
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,11 +57,11 @@
           </li>
           <div class="kasen"></div>
           <li>
-            <a href="genre.php" class="listmenu">ジャンル管理</a>
+            <a href="" class="listmenu">ジャンル管理</a>
           </li>
           <div class="kasen"></div>
           <li>
-            <a href="maker.php" class="listmenu">メーカー管理</a>
+            <a href="" class="listmenu">メーカー管理</a>
           </li>
           <div class="kasen"></div>
           <li>
@@ -73,29 +76,30 @@
       </div>
       <div class="main">
         <div class="maintitle">
-          　ジャンル登録
+          　ジャンル編集
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="genreconfirm.php" method="post">
+          <form action="makereditconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
-                ジャンル情報
+                メーカー情報
               </div>
               <div class="syouhinrow">
                 <div class="rowleft">
-                  ジャンルNo
+                  メーカーNo
                 </div>
                 <div class="rowright">
-                  <?= $a+1 ?>
+                  <?= $editid ?>
+                  <input type='hidden' name='id' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">
                 <div class="rowleft">
-                  ジャンル名
+                  メーカー名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
+                  <input type="text" class="textrightbox" name="genre" value="<?=$editname?>">
                 </div>
               </div>
               
