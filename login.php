@@ -7,7 +7,7 @@
   session_start();
 // データベースに接続するために必要なデータソースを変数に格納
   // mysql:host=ホスト名;dbname=データベース名;charset=文字エンコード
-$dsn = 'mysql:host=localhost;dbname=sumple;charset=utf8';
+$dsn = 'mysql:host=localhost;dbname=sample;charset=utf8';
   // データベースのユーザー名
 $user = 'root';
   // データベースのパスワード
