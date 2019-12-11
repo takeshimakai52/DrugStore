@@ -1,17 +1,30 @@
 <?php
-  require 'common.php';
+	require 'common.php';
+	function maker_upload(){
+		// POSTではないとき何もしない
+		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+				return;
+		}
+
+		$genre = filter_input(INPUT_POST, 'genre');
+		if ('' === $genre) {
+				throw new Exception('ジャンルは入力必須です。');
+		}
+
+		$sql2 = 'INSERT INTO `maker` (`id`,`name`) VALUES (NULL, :genre) ';
+		$arr = [];
+		$arr[':genre'] = $genre;
+		insert($sql2, $arr);
+  }
+
   try{
     $dbh=connect_db();
-    // $sql = "select * from present order by id desc limit 1;
-    $sql = "SELECT * FROM maker order by id desc limit 1";
-    $res = $dbh->query($sql);
+		maker_upload();
+		
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,35 +89,15 @@
           　メーカー登録
         </div>
         <div class="maincontents">
-          <div class="haku"></div>
-          <form action="makerconfirm.php" method="post">
-            <div class="touroku">
-              <div class="touroku_head">
-                メーカー情報
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  メーカーNo
-                </div>
-                <div class="rowright">
-                  <?= $a+1 ?>
-                </div>
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  メーカー名
-                </div>
-                <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
-                </div>
-              </div>
-              
-
-              <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
-              </div>
-            </div>
-          </form>
+					<div class="haku"></div>
+					<div class="genreconfirm">
+            <div class="confirmmessage">
+							メーカーを登録しました
+						</div>
+						<div class="genrelink">
+						  <a href="maker.php">メーカー一覧にも戻る</a>
+						</div>
+					</div>
         </div>
 
       </div>

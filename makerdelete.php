@@ -1,17 +1,26 @@
 <?php
   require 'common.php';
+	function maker_delete(){
+		// POSTではないとき何もしない
+		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+				return;
+    }
+    
+		$id = filter_input(INPUT_POST, 'deleteid');
+		$dbh = connect_db();
+		$sql2 = "DELETE FROM maker WHERE id = :id";
+		$stmt = $dbh->prepare($sql2);
+		$params = array(':id' => "$id");
+		$stmt->execute($params);
+  }
+
   try{
-    $dbh=connect_db();
-    // $sql = "select * from present order by id desc limit 1;
-    $sql = "SELECT * FROM maker order by id desc limit 1";
-    $res = $dbh->query($sql);
+		maker_delete();
+		
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,38 +82,18 @@
       </div>
       <div class="main">
         <div class="maintitle">
-          　メーカー登録
+          　メーカー削除
         </div>
         <div class="maincontents">
-          <div class="haku"></div>
-          <form action="makerconfirm.php" method="post">
-            <div class="touroku">
-              <div class="touroku_head">
-                メーカー情報
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  メーカーNo
-                </div>
-                <div class="rowright">
-                  <?= $a+1 ?>
-                </div>
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  メーカー名
-                </div>
-                <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
-                </div>
-              </div>
-              
-
-              <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
-              </div>
-            </div>
-          </form>
+					<div class="haku"></div>
+					<div class="genreconfirm">
+            <div class="confirmmessage">
+							メーカーを削除しました
+						</div>
+						<div class="genrelink">
+						  <a href="maker.php">メーカー一覧にも戻る</a>
+						</div>
+					</div>
         </div>
 
       </div>

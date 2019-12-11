@@ -1,35 +1,21 @@
 <?php
   require 'common.php';
-  function genre_serch(){
+  function maker_serch(){
     $dbh=connect_db();
     // if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
     if($_POST["genreid"] != "" OR $_POST["genrename"] != ""){ 
       $id = filter_input(INPUT_POST, 'genreid');
       $name = filter_input(INPUT_POST, 'genrename');
-      // $statement = $dbh->prepare("SELECT * FROM genre WHERE id = '2' ");
-      // $sql = "SELECT * FROM genre WHERE id = $id OR name LIKE '%$name%";
-      // $res = $dbh->query($sql);
-      // $st = $dbh->prepare("SELECT * FROM genre WHERE id = ?");
-      // $res = $st->execute(array(2));
-
-      $query = "SELECT * FROM maker WHERE name like :value OR id = :id";
+      $query = "SELECT * FROM maker WHERE 1=1";
+      if($id) $query .= ' AND id = :id';
+      if($name) $query .= ' AND name LIKE :name';
       $stmt  = $dbh->prepare($query);
-      $stmt->bindValue(":value", '%'. $name .'%', PDO::PARAM_STR);
-      $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+      if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
+      if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
       $stmt->execute();
       $serched=$stmt->fetchAll();
-      // var_dump($res);
-
-      // $stmt = $dbh->query("SELECT * FROM genre WHERE ID='".$_POST["genreid"] ."' OR Name LIKE  '%".$_POST["genrename"]."%')");
-      // var_dump($stmt);
-      // $statement->bindValue(':id',$_POST["genreid"]);
-      // $stmt=$statement->execute();
-      
-      // foreach($serched as $value){
-      //   echo $value['name'];
-      //   echo $value['id'];
-      // }
       return $serched;
+
     }else{
       return;
     }
@@ -38,7 +24,7 @@
 
   try{
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      $res = genre_serch();
+      $res = maker_serch();
     }else{
       $dbh=connect_db();
       $sql = "SELECT * FROM maker";
