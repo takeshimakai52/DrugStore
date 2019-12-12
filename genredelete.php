@@ -1,19 +1,6 @@
 <?php
   require 'common.php';
-	function genre_delete(){
-		// POSTではないとき何もしない
-		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
-				return;
-    }
-    
-		$id = filter_input(INPUT_POST, 'deleteid');
-		$dbh = connect_db();
-		$sql2 = "DELETE FROM genre WHERE id = :id";
-		$stmt = $dbh->prepare($sql2);
-		$params = array(':id' => "$id");
-		$stmt->execute($params);
-  }
-
+	
   try{
 		genre_delete();
 		
@@ -21,6 +8,7 @@
     echo $e->getMessage();
     die();
  }
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -2,21 +2,14 @@
   require 'common.php';
   try{
     $dbh=connect_db();
-    // $sql = "select * from present order by id desc limit 1;
-    $sql = "SELECT * FROM genre order by id desc limit 1";
-    $res = $dbh->query($sql);
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
 
   $editid = filter_input(INPUT_POST, 'editid');
   $editname = filter_input(INPUT_POST, 'editname');
-  echo $editid;
-  echo $editname;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,7 +86,7 @@
                 </div>
                 <div class="rowright">
                   <?= $editid ?>
-                  <input type='hidden' name='editid' value='<?=$editid ?>'>
+                  <input type='hidden' name='id' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">

@@ -1,69 +1,5 @@
 <?php
   require 'common.php';
-  function genre_serch($genreId, $genreName){
-    $dbh=connect_db();
-    // if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-    if($genreId != "" OR $genreName != ""){ 
-      $id = filter_input(INPUT_POST, 'genreid');
-      $name = filter_input(INPUT_POST, 'genrename');
-      
-      $sqlFlg = 0;
-      if(isset($id)){   //ジャンルIDのみパターン
-        $sqlFlg += 1;
-      }
-      if(isset($name)){ //ジャンル名のみパターン
-        $sqlFlg += 2;
-      }
-
-      $query = "SELECT * FROM genre WHERE ";
-      if($sqlFlg == 1){
-        $query .= ' id = :id';
-      }else if($sqlFlg == 2){
-        $query .= ' name LIKE :name'
-      }
-      else if($sqlFlg == 3){
-        $query .= ' id = :id AND name LIKE :name;';
-      }
-
-//      if($id) $query .= ' AND id = :id';
-//      if($name) $query .= ' AND name LIKE :name';
-
-      $stmt  = $dbh->prepare($query);
-      if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
-      if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
-      $stmt->execute();
-      $serched=$stmt->fetchAll();
-
-      // $statement = $dbh->prepare("SELECT * FROM genre WHERE id = '2' ");
-      // $sql = "SELECT * FROM genre WHERE id = $id OR name LIKE '%$name%";
-      // $res = $dbh->query($sql);
-      // $st = $dbh->prepare("SELECT * FROM genre WHERE id = ?");
-      // $res = $st->execute(array(2));
-
-      // $query = "SELECT * FROM genre WHERE name like :value OR id = :id";
-      // $stmt  = $dbh->prepare($query);
-      // $stmt->bindValue(":value", '%'. $name .'%', PDO::PARAM_STR);
-      // $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-      // $stmt->execute();
-      // $serched=$stmt->fetchAll();
-
-      // $stmt = $dbh->query("SELECT * FROM genre WHERE ID='".$_POST["genreid"] ."' OR Name LIKE  '%".$_POST["genrename"]."%')");
-      // var_dump($stmt);
-      // $statement->bindValue(':id',$_POST["genreid"]);
-      // $stmt=$statement->execute();
-      
-      // foreach($serched as $value){
-      //   echo $value['name'];
-      //   echo $value['id'];
-      // }
-
-      return $serched;
-    }else{
-      return false;
-    }
-  }
-
-
   try{
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
       $res = genre_serch($_POST["genreid"], $_POST["genrename"] );
@@ -72,11 +8,6 @@
       $sql = "SELECT * FROM genre";
       $res = $dbh->query($sql);
     }
-    // genre_serch();
-    // $dbh=connect_db();
-    // $sql = "SELECT * FROM genre";
-    // $res = $dbh->query($sql);
- 
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
@@ -172,12 +103,6 @@
             <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
           </div>
         </form>
-
-          <!-- <form action="genrenew.php" method="get"></form>
-            <div class="serchbox">
-              <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
-            </div>
-          </form> -->
           
           <div class="itemshow">
             <div class="itemshowbox">

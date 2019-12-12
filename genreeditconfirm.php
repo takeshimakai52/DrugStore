@@ -1,23 +1,6 @@
 <?php
 	require 'common.php';
-	function genre_edit(){
-		// POSTではないとき何もしない
-		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
-				return;
-		}
-
-		$genre = filter_input(INPUT_POST, 'genre');
-		if ('' === $genre) {
-				throw new Exception('ジャンルは入力必須です。');
-		}
-		$id = filter_input(INPUT_POST, 'id');
-		$dbh=connect_db();
-		$sql2 = "UPDATE genre SET name = :name WHERE id = :id";
-		$stmt = $dbh->prepare($sql2);
-		$params = array(':name' => "$genre", ':id' => "$id");
-		$stmt->execute($params);
-  }
-
+	
   try{
 		genre_edit();
 		

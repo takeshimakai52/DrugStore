@@ -1,30 +1,14 @@
 <?php
 	require 'common.php';
-	function genre_upload(){
-		// POSTではないとき何もしない
-		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
-				return;
-		}
-
-		$genre = filter_input(INPUT_POST, 'genre');
-		if ('' === $genre) {
-				throw new Exception('ジャンルは入力必須です。');
-		}
-
-		$sql2 = 'INSERT INTO `genre` (`id`,`name`) VALUES (NULL, :genre) ';
-		$arr = [];
-		$arr[':genre'] = $genre;
-		insert($sql2, $arr);
-  }
-
+	
   try{
-    $dbh=connect_db();
-		genre_upload();
+		genre_new();
 		
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
+ 
 ?>
 <!DOCTYPE html>
 <html>
