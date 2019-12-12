@@ -3,6 +3,11 @@
   try{
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
       $res = genre_serch($_POST["genreid"], $_POST["genrename"] );
+      if($res==""){
+        $dbh=connect_db();
+        $sql = "SELECT * FROM genre";
+        $res = $dbh->query($sql);
+      }
     }else{
       $dbh=connect_db();
       $sql = "SELECT * FROM genre";

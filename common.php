@@ -1,4 +1,5 @@
 <?php //関数置き場
+
 function connect_db()
 {
   $dsn = 'mysql:host=localhost;dbname=sample;charset=utf8';
@@ -109,6 +110,81 @@ function genre_delete(){
   $id = filter_input(INPUT_POST, 'deleteid');
   $dbh = connect_db();
   $sql2 = "DELETE FROM genre WHERE id = :id";
+  $stmt = $dbh->prepare($sql2);
+  $params = array(':id' => "$id");
+  $stmt->execute($params);
+}
+
+function maker_serch($Id, $Name){
+  $dbh=connect_db();
+  if($Id != "" OR $Name != ""){ 
+    $id = filter_input(INPUT_POST, 'genreid');
+    $name = filter_input(INPUT_POST, 'genrename');
+    $sqlFlg = 0;
+    if(!empty($id) && empty($name)){   //IDのみパターン
+      $sqlFlg = 1;
+    }elseif(empty($id) && !empty($name)){ //名のみパターン
+      $sqlFlg = 2;
+    }elseif(isset($id,$name)){ //両方パターン
+      $sqlFlg = 3;
+    }
+
+    $query = "SELECT * FROM maker WHERE ";
+    if($sqlFlg == 1){
+      $query .= ' id = :id';
+    }else if($sqlFlg == 2){
+      $query .= ' name LIKE :name';
+    }
+    else if($sqlFlg == 3){
+      $query .= ' id = :id AND name LIKE :name';
+    }
+
+    $stmt  = $dbh->prepare($query);
+    if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
+    if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
+    $stmt->execute();
+    $serched=$stmt->fetchAll();
+    return $serched;
+  }else{
+    return;
+  }
+}
+
+function maker_new(){
+  if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+      return false;
+  }
+  $genre = filter_input(INPUT_POST, 'genre');
+  $sql = 'INSERT INTO `maker` (`id`,`name`) VALUES (NULL, :genre) ';
+  $arr = [];
+  $arr[':genre'] = $genre;
+  $pdo = connect_db();
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute($arr);
+  return $pdo->lastInsertId();
+}
+
+function maker_edit(){
+  if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+      return false;
+  }
+
+  $genre = filter_input(INPUT_POST, 'genre');
+  $id = filter_input(INPUT_POST, 'id');
+  $dbh=connect_db();
+  $sql2 = "UPDATE maker SET name = :name WHERE id = :id";
+  $stmt = $dbh->prepare($sql2);
+  $params = array(':name' => "$genre", ':id' => "$id");
+  $stmt->execute($params);
+}
+
+function maker_delete(){
+  if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+      return;
+  }
+  $id = filter_input(INPUT_POST, 'deleteid');
+  $dbh = connect_db();
+  $sql2 = "DELETE FROM maker WHERE id = :id";
   $stmt = $dbh->prepare($sql2);
   $params = array(':id' => "$id");
   $stmt->execute($params);
