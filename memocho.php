@@ -58,4 +58,23 @@ function genre_serch($genreId, $genreName){
       return false;
     }
   }
+
+  function maker_serch(){
+    $dbh=connect_db();
+    if($_POST["genreid"] != "" OR $_POST["genrename"] != ""){ 
+      $id = filter_input(INPUT_POST, 'genreid');
+      $name = filter_input(INPUT_POST, 'genrename');
+      $query = "SELECT * FROM maker WHERE 1=1";
+      if($id) $query .= ' AND id = :id';
+      if($name) $query .= ' AND name LIKE :name';
+      $stmt  = $dbh->prepare($query);
+      if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
+      if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
+      $stmt->execute();
+      $serched=$stmt->fetchAll();
+      return $serched;
+    }else{
+      return;
+    }
+  }
 ?>

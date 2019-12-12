@@ -1,39 +1,19 @@
 <?php
   require 'common.php';
-  function maker_serch(){
-    $dbh=connect_db();
-    // if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-    if($_POST["genreid"] != "" OR $_POST["genrename"] != ""){ 
-      $id = filter_input(INPUT_POST, 'genreid');
-      $name = filter_input(INPUT_POST, 'genrename');
-      $query = "SELECT * FROM maker WHERE 1=1";
-      if($id) $query .= ' AND id = :id';
-      if($name) $query .= ' AND name LIKE :name';
-      $stmt  = $dbh->prepare($query);
-      if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
-      if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
-      $stmt->execute();
-      $serched=$stmt->fetchAll();
-      return $serched;
-
-    }else{
-      return;
-    }
-  }
-
-
+ 
   try{
     if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      $res = maker_serch();
+      $res = maker_serch($_POST["genreid"],$_POST["genrename"]);
+      if($res==""){
+        $dbh=connect_db();
+        $sql = "SELECT * FROM maker";
+        $res = $dbh->query($sql);
+      }
     }else{
       $dbh=connect_db();
       $sql = "SELECT * FROM maker";
       $res = $dbh->query($sql);
     }
-    // genre_serch();
-    // $dbh=connect_db();
-    // $sql = "SELECT * FROM genre";
-    // $res = $dbh->query($sql);
  
   }catch(PDOException $e) {
     echo $e->getMessage();

@@ -2,7 +2,6 @@
   require 'common.php';
   try{
     $dbh=connect_db();
-    // $sql = "select * from present order by id desc limit 1;
     $sql = "SELECT * FROM maker order by id desc limit 1";
     $res = $dbh->query($sql);
   }catch(PDOException $e) {

@@ -1,25 +1,9 @@
 <?php
 	require 'common.php';
-	function maker_upload(){
-		// POSTではないとき何もしない
-		if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
-				return;
-		}
-
-		$genre = filter_input(INPUT_POST, 'genre');
-		if ('' === $genre) {
-				throw new Exception('ジャンルは入力必須です。');
-		}
-
-		$sql2 = 'INSERT INTO `maker` (`id`,`name`) VALUES (NULL, :genre) ';
-		$arr = [];
-		$arr[':genre'] = $genre;
-		insert($sql2, $arr);
-  }
 
   try{
     $dbh=connect_db();
-		maker_upload();
+		maker_new();
 		
   }catch(PDOException $e) {
     echo $e->getMessage();
