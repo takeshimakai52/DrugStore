@@ -190,5 +190,32 @@ function maker_delete(){
   $stmt->execute($params);
 }
 
+function brand_new(){
+  if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+      return false;
+  }
+  $genre = filter_input(INPUT_POST, 'genre');
+  $maker_id = filter_input(INPUT_POST, 'maker_id');
+  $sql = 'INSERT INTO `brand` (`id`,`name`,`maker_id`) VALUES (NULL, :genre, :maker_id) ';
+  $arr = [];
+  $arr[':genre'] = $genre;
+  $arr[':maker_id'] = $maker_id;
+  $pdo = connect_db();
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute($arr);
+  return $pdo->lastInsertId();
+}
+
+function brand_delete(){
+  if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+      return;
+  }
+  $id = filter_input(INPUT_POST, 'deleteid');
+  $dbh = connect_db();
+  $sql2 = "DELETE FROM brand WHERE id = :id";
+  $stmt = $dbh->prepare($sql2);
+  $params = array(':id' => "$id");
+  $stmt->execute($params);
+}
 
 ?>

@@ -17,7 +17,7 @@
     </li>
     <div class="kasen"></div>
     <li>
-      <a href="" class="listmenu">ブランド管理</a>
+      <a href="brand.php" class="listmenu">ブランド管理</a>
     </li>
     <div class="kasen"></div>
     <li>
