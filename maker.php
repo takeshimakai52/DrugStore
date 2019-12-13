@@ -51,34 +51,7 @@
     </div>
     
     <div class="ohako">
-      <div class="sidebar">
-        <ul class="menu">
-          <li>
-            <a href="" class="listmenu">商品一覧</a>
-          </li>
-          <div class="kasen"></div>
-          <li>
-            <a href=""class="listmenu">商品登録</a>
-          </li>
-          <div class="kasen"></div>
-          <li>
-            <a href="genre.php" class="listmenu">ジャンル管理</a>
-          </li>
-          <div class="kasen"></div>
-          <li>
-            <a href="" class="listmenu">メーカー管理</a>
-          </li>
-          <div class="kasen"></div>
-          <li>
-            <a href="" class="listmenu">ブランド管理</a>
-          </li>
-          <div class="kasen"></div>
-          <li>
-            <a href="" class="listmenu">売価管理</a>
-          </li>
-          <div class="kasen"></div>
-        </ul>
-      </div>
+<?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
         <div class="maintitle">
           　メーカー管理
@@ -111,12 +84,6 @@
           </div>
         </form>
 
-          <!-- <form action="genrenew.php" method="get"></form>
-            <div class="serchbox">
-              <button type="submit" name="itemsearch" class="itemserch">登録画面へ</button>
-            </div>
-          </form> -->
-          
           <div class="itemshow">
             <div class="itemshowbox">
               <div class="itemlabel">
@@ -126,7 +93,6 @@
 								<div class="labelname">
 									メーカー名
 								</div>
-
               </div>
 
 <?php
