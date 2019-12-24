@@ -20,8 +20,8 @@
       function brand_serch($Id, $Name){
         $dbh=connect_db();
         if($Id != "" OR $Name != ""){ 
-          $id = filter_input(INPUT_POST, 'genreid');
-          $name = filter_input(INPUT_POST, 'genrename');
+          $id = filter_input(INPUT_POST, 'brandid');
+          $name = filter_input(INPUT_POST, 'brandname');
           $sqlFlg = 0;
           if(!empty($id) && empty($name)){   //IDのみパターン
             $sqlFlg = 1;
@@ -31,7 +31,7 @@
             $sqlFlg = 3;
           }
       
-          $query = "SELECT * FROM maker WHERE ";
+          $query = "SELECT * FROM brand WHERE ";
           if($sqlFlg == 1){
             $query .= ' id = :id';
           }else if($sqlFlg == 2){
@@ -51,7 +51,7 @@
           return;
         }
       }
-      $res = brand_serch($_POST["genreid"],$_POST["genrename"]);
+      $res = brand_serch($_POST["brandid"],$_POST["barandname"]);
       if($res==""){
         $dbh=connect_db();
         $sql = "SELECT * FROM maker";
@@ -106,6 +106,8 @@
         <div class="maintitle">
           　ブランド管理
         </div>
+        <div>
+        </div>
         <div class="maincontents">
           
         <form action="" method="post">
@@ -114,14 +116,14 @@
               <div class="itemname_title">
                 ブランドNo
               </div>
-              <input type="text" name="genreid"　value="">
+              <input type="text" name="brandid"　value="">
             </div>
             <div class="genre">
               <div class="genreselect">
                 <div class="itemname_title">
                   ブランド名
                 </div>
-                <input type="text" name="genrename">
+                <input type="text" name="brandname">
               </div>
             </div>
             <div class="genre">
@@ -129,7 +131,7 @@
                 <div class="itemname_title">
                   メーカー名
                 </div>
-                <select name="maker">
+                <select name="maker"　name="brandmaker">
                   <option value="1">大塚製薬</option>
                   <option value="2">DHC</option>
                   <option value="3">ファンケル</option>

@@ -1,23 +1,14 @@
 <?php
+  session_start();
   require 'common.php';
-  try{
-    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      $res = genre_serch($_POST["genreid"], $_POST["genrename"] );
-      if($res==""){
-        $dbh=connect_db();
-        $sql = "SELECT * FROM genre";
-        $res = $dbh->query($sql);
-      }
-    }else{
-      $dbh=connect_db();
-      $sql = "SELECT * FROM genre";
-      $res = $dbh->query($sql);
-    }
-  }catch(PDOException $e) {
-    echo $e->getMessage();
-    die();
- }
-  
+  $dbh=connect_db();
+  $sql = "SELECT * FROM genre";
+  $res = $dbh->query($sql);
+  if(isset($_SESSION["searchres"])){
+    $res = $_SESSION["searchres"];
+  }
+  unset($_SESSION['searchres']);
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +47,7 @@
         </div>
         <div class="maincontents">
           
-        <form action="" method="post">
+        <form action="genresearch.php" method="post">
           <div class="serchbox">
             <div class="itemname">
               <div class="itemname_title">

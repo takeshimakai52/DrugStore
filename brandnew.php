@@ -15,6 +15,8 @@
  foreach( $res as $value ) {
    $a="$value[id]";
   }
+  
+$test=array("0","1","2");
 ?>
 <!DOCTYPE html>
 <html>
@@ -100,5 +102,12 @@ endforeach
 
       </div>
     </div>
+<?php
+  foreach( $test as $value ):
+?>
+    <a href= "genreitems<?=$value?>.php" >tesuto<?=$value?></a>
+<?php
+  endforeach
+?>
   </body>
 </html>

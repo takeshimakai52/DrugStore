@@ -39,15 +39,15 @@ function h($string)
 function genre_serch($genreId, $genreName){
   $dbh=connect_db();
   if($genreId != "" OR $genreName != ""){ 
-    $id = filter_input(INPUT_POST, 'genreid');
-    $name = filter_input(INPUT_POST, 'genrename');
+    // $id = filter_input(INPUT_POST, 'genreid');
+    // $name = filter_input(INPUT_POST, 'genrename');
 
     $sqlFlg = 0;
-    if(!empty($id) && empty($name)){   //ジャンルIDのみパターン
+    if(!empty($genreId) && empty($genreNamee)){   //ジャンルIDのみパターン
       $sqlFlg = 1;
-    }elseif(empty($id) && !empty($name)){ //ジャンル名のみパターン
+    }elseif(empty($genreId) && !empty($genreName)){ //ジャンル名のみパターン
       $sqlFlg = 2;
-    }elseif(isset($id,$name)){ //両方パターン
+    }elseif(isset($genreId,$genreName)){ //両方パターン
       $sqlFlg = 3;
     }
 
@@ -62,8 +62,8 @@ function genre_serch($genreId, $genreName){
     }
 
     $stmt  = $dbh->prepare($query);
-    if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
-    if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
+    if($genreId) $stmt -> bindValue(':id', $genreId, PDO::PARAM_INT);
+    if($genreName) $stmt -> bindValue(':name', '%'.$genreName.'%', PDO::PARAM_STR);
     $stmt->execute();
     $serched=$stmt->fetchAll();
     return $serched;
@@ -73,12 +73,11 @@ function genre_serch($genreId, $genreName){
   }
 }
 
-function genre_new(){
+function genre_new($genre){
   // POSTではないとき何もしない
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return;
   }
-  $genre = filter_input(INPUT_POST, 'genre');
   $sql = 'INSERT INTO `genre` (`id`,`name`) VALUES (NULL, :genre) ';
   $arr = [];
   $arr[':genre'] = $genre;
@@ -88,26 +87,25 @@ function genre_new(){
   return $pdo->lastInsertId();
 }
 
-function genre_edit(){
+function genre_edit($name,$id){
   //POSTがないなら何もしない
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return false;
   }
-  $genre = filter_input(INPUT_POST, 'genre');
-  $id = filter_input(INPUT_POST, 'id');
+  // $genre = filter_input(INPUT_POST, 'genre');
+  // $id = filter_input(INPUT_POST, 'id');
   $dbh=connect_db();
   $sql2 = "UPDATE genre SET name = :name WHERE id = :id";
   $stmt = $dbh->prepare($sql2);
-  $params = array(':name' => "$genre", ':id' => "$id");
+  $params = array(':name' => "$name", ':id' => "$id");
   $stmt->execute($params);
 }
 
-function genre_delete(){
+function genre_delete($id){
   // POSTではないとき何もしない
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return;
   }
-  $id = filter_input(INPUT_POST, 'deleteid');
   $dbh = connect_db();
   $sql2 = "DELETE FROM genre WHERE id = :id";
   $stmt = $dbh->prepare($sql2);
@@ -115,11 +113,9 @@ function genre_delete(){
   $stmt->execute($params);
 }
 
-function maker_serch($Id, $Name){
+function maker_serch($id, $name){
   $dbh=connect_db();
-  if($Id != "" OR $Name != ""){ 
-    $id = filter_input(INPUT_POST, 'genreid');
-    $name = filter_input(INPUT_POST, 'genrename');
+  if($id != "" OR $name != ""){ 
     $sqlFlg = 0;
     if(!empty($id) && empty($name)){   //IDのみパターン
       $sqlFlg = 1;
@@ -150,39 +146,34 @@ function maker_serch($Id, $Name){
   }
 }
 
-function maker_new(){
+function maker_new($maker){
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return false;
-  }
-  $genre = filter_input(INPUT_POST, 'genre');
-  $sql = 'INSERT INTO `maker` (`id`,`name`) VALUES (NULL, :genre) ';
+  }  
+  $sql = 'INSERT INTO `maker` (`id`,`name`) VALUES (NULL, :maker) ';
   $arr = [];
-  $arr[':genre'] = $genre;
+  $arr[':maker'] = $maker;
   $pdo = connect_db();
   $stmt = $pdo->prepare($sql);
   $stmt->execute($arr);
   return $pdo->lastInsertId();
 }
 
-function maker_edit(){
+function maker_edit($makername,$makerid){
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return false;
   }
-
-  $genre = filter_input(INPUT_POST, 'genre');
-  $id = filter_input(INPUT_POST, 'id');
   $dbh=connect_db();
   $sql2 = "UPDATE maker SET name = :name WHERE id = :id";
   $stmt = $dbh->prepare($sql2);
-  $params = array(':name' => "$genre", ':id' => "$id");
+  $params = array(':name' => "$makername", ':id' => "$makerid");
   $stmt->execute($params);
 }
 
-function maker_delete(){
+function maker_delete($id){
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return;
   }
-  $id = filter_input(INPUT_POST, 'deleteid');
   $dbh = connect_db();
   $sql2 = "DELETE FROM maker WHERE id = :id";
   $stmt = $dbh->prepare($sql2);
@@ -190,15 +181,14 @@ function maker_delete(){
   $stmt->execute($params);
 }
 
-function brand_new(){
+function brand_new($brand,$maker_id){
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return false;
   }
-  $genre = filter_input(INPUT_POST, 'genre');
-  $maker_id = filter_input(INPUT_POST, 'maker_id');
-  $sql = 'INSERT INTO `brand` (`id`,`name`,`maker_id`) VALUES (NULL, :genre, :maker_id) ';
+
+  $sql = 'INSERT INTO `brand` (`id`,`name`,`maker_id`) VALUES (NULL, :brand, :maker_id) ';
   $arr = [];
-  $arr[':genre'] = $genre;
+  $arr[':brand'] = $brand;
   $arr[':maker_id'] = $maker_id;
   $pdo = connect_db();
   $stmt = $pdo->prepare($sql);
@@ -206,15 +196,25 @@ function brand_new(){
   return $pdo->lastInsertId();
 }
 
-function brand_delete(){
+function brand_delete($id){
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return;
   }
-  $id = filter_input(INPUT_POST, 'deleteid');
   $dbh = connect_db();
   $sql2 = "DELETE FROM brand WHERE id = :id";
   $stmt = $dbh->prepare($sql2);
   $params = array(':id' => "$id");
+  $stmt->execute($params);
+}
+
+function brand_edit($brand,$maker_id,$id){
+  if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
+      return false;
+  }
+  $dbh=connect_db();
+  $sql2 = "UPDATE brand SET name = :name,maker_id = :maker_id WHERE id = :id";
+  $stmt = $dbh->prepare($sql2);
+  $params = array(':name' => "$brand", ':maker_id' => "$maker_id", ':id' => "$id");
   $stmt->execute($params);
 }
 

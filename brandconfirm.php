@@ -1,8 +1,9 @@
 <?php
 	require 'common.php';
-	
+  $brand = filter_input(INPUT_POST, 'genre');
+  $maker_id = filter_input(INPUT_POST, 'maker_id');
   try{
-    brand_new();
+    brand_new($brand,$maker_id);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

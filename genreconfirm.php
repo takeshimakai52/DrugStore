@@ -1,8 +1,8 @@
 <?php
 	require 'common.php';
-	
+	$genre = filter_input(INPUT_POST, 'genre');
   try{
-		genre_new();
+		genre_new($genre);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

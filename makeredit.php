@@ -1,16 +1,19 @@
 <?php
   require 'common.php';
-  try{
-    $dbh=connect_db();
-    $sql = "SELECT * FROM maker order by id desc limit 1";
-    $res = $dbh->query($sql);
-  }catch(PDOException $e) {
-    echo $e->getMessage();
-    die();
- }
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
+
+  // $res = maker_getData($id);
+
+//   try{
+//     $dbh=connect_db();
+//     $sql = "SELECT * FROM maker order by id desc limit 1";
+//     $res = $dbh->query($sql);
+//   }catch(PDOException $e) {
+//     echo $e->getMessage();
+//     die();
+//  }
+//  foreach( $res as $value ) {
+//    $a="$value[id]";
+//   }
 
   $editid = filter_input(INPUT_POST, 'editid');
   $editname = filter_input(INPUT_POST, 'editname');
@@ -63,7 +66,7 @@
                 </div>
                 <div class="rowright">
                   <?= $editid ?>
-                  <input type='hidden' name='id' value='<?=$editid ?>'>
+                  <input type='hidden' name='makerid' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">
@@ -71,7 +74,7 @@
                   メーカー名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre" value="<?=$editname?>">
+                  <input type="text" class="textrightbox" name="makername" value="<?=$editname?>">
                 </div>
               </div>
               

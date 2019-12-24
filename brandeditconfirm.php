@@ -1,22 +1,10 @@
 <?php
 	require 'common.php';
-	
+  $brand = filter_input(INPUT_POST, 'genre');
+  $id = filter_input(INPUT_POST, 'id');
+  $maker_id = filter_input(INPUT_POST, 'maker_id');
   try{
-    function brand_edit(){
-      if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
-          return false;
-      }
-    
-      $genre = filter_input(INPUT_POST, 'genre');
-      $id = filter_input(INPUT_POST, 'id');
-      $maker_id = filter_input(INPUT_POST, 'maker_id');
-      $dbh=connect_db();
-      $sql2 = "UPDATE brand SET name = :name,maker_id = :maker_id WHERE id = :id";
-      $stmt = $dbh->prepare($sql2);
-      $params = array(':name' => "$genre", ':maker_id' => "$maker_id", ':id' => "$id");
-      $stmt->execute($params);
-    }
-		brand_edit();
+	  brand_edit($brand,$maker_id,$id);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

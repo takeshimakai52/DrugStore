@@ -1,9 +1,9 @@
 <?php
   require 'common.php';
-	
+	$id = filter_input(INPUT_POST, 'deleteid');
   try{
     
-		brand_delete();
+		brand_delete($id);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

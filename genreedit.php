@@ -59,7 +59,7 @@
                 </div>
                 <div class="rowright">
                   <?= $editid ?>
-                  <input type='hidden' name='id' value='<?=$editid ?>'>
+                  <input type='hidden' name='genreid' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">
@@ -67,7 +67,7 @@
                   ジャンル名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre" value="<?=$editname?>">
+                  <input type="text" class="textrightbox" name="genrename" value="<?=$editname?>">
                 </div>
               </div>
               

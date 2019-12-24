@@ -1,8 +1,9 @@
 <?php
 	require 'common.php';
-	
+	$id = filter_input(INPUT_POST, 'genreid');
+  $name = filter_input(INPUT_POST, 'genrename');
   try{
-		genre_edit();
+		genre_edit($name,$id);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

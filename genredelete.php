@@ -1,9 +1,8 @@
 <?php
   require 'common.php';
-	
+	$id = filter_input(INPUT_POST, 'deleteid');
   try{
-		genre_delete();
-		
+		genre_delete($id);
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();

@@ -1,8 +1,10 @@
 <?php
-	require 'common.php';
+  require 'common.php';
+  $makername = filter_input(INPUT_POST, 'makername');
+  $makerid = filter_input(INPUT_POST, 'makerid');
 	
   try{
-		maker_edit();
+		maker_edit($makername,$makerid);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();
