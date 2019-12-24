@@ -1,11 +1,11 @@
 <div class="sidebar">
   <ul class="menu">
     <li>
-      <a href="itemitiran.html" class="listmenu">商品一覧</a>
+      <a href="item.php" class="listmenu">商品一覧</a>
     </li>
     <div class="kasen"></div>
     <li>
-      <a href=""class="listmenu">商品登録</a>
+      <a href="itemnew.php"class="listmenu">商品登録</a>
     </li>
     <div class="kasen"></div>
     <li>

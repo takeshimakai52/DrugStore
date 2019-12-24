@@ -8,6 +8,8 @@
     $res = $_SESSION["searchres"];
   }
   unset($_SESSION['searchres']);
+
+  
  
   
 ?>
