@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require 'common.php';
   
   // 紐づくメーカー名を取得
@@ -14,61 +15,15 @@
     }
     return $maker_name;
   }
-
-  try{
-    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      function brand_serch($Id, $Name){
-        $dbh=connect_db();
-        if($Id != "" OR $Name != ""){ 
-          $id = filter_input(INPUT_POST, 'brandid');
-          $name = filter_input(INPUT_POST, 'brandname');
-          $sqlFlg = 0;
-          if(!empty($id) && empty($name)){   //IDのみパターン
-            $sqlFlg = 1;
-          }elseif(empty($id) && !empty($name)){ //名のみパターン
-            $sqlFlg = 2;
-          }elseif(isset($id,$name)){ //両方パターン
-            $sqlFlg = 3;
-          }
-      
-          $query = "SELECT * FROM brand WHERE ";
-          if($sqlFlg == 1){
-            $query .= ' id = :id';
-          }else if($sqlFlg == 2){
-            $query .= ' name LIKE :name';
-          }
-          else if($sqlFlg == 3){
-            $query .= ' id = :id AND name LIKE :name';
-          }
-      
-          $stmt  = $dbh->prepare($query);
-          if($id) $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
-          if($name) $stmt -> bindValue(':name', '%'.$name.'%', PDO::PARAM_STR);
-          $stmt->execute();
-          $serched=$stmt->fetchAll();
-          return $serched;
-        }else{
-          return;
-        }
-      }
-      $res = brand_serch($_POST["brandid"],$_POST["barandname"]);
-      if($res==""){
-        $dbh=connect_db();
-        $sql = "SELECT * FROM maker";
-        $res = $dbh->query($sql);
-        
-      }
-    }else{
-      $dbh=connect_db();
-      $sql = "SELECT * FROM brand";
-      $res = $dbh->query($sql);
-
-    }
- 
-  }catch(PDOException $e) {
-    echo $e->getMessage();
-    die();
- }
+  $dbh=connect_db();
+  $sql = "SELECT * FROM brand";
+  $sql2= "SELECT * FROM maker";
+  $res = $dbh->query($sql);
+  $makers = $dbh->query($sql2);
+  if(isset($_SESSION["searchres"])){
+    $res = $_SESSION["searchres"];
+  }
+  unset($_SESSION['searchres']);
   
 ?>
 
@@ -110,7 +65,7 @@
         </div>
         <div class="maincontents">
           
-        <form action="" method="post">
+        <form action="brandsearch.php" method="post">
           <div class="serchbox">
             <div class="itemname">
               <div class="itemname_title">
@@ -131,10 +86,15 @@
                 <div class="itemname_title">
                   メーカー名
                 </div>
-                <select name="maker"　name="brandmaker">
-                  <option value="1">大塚製薬</option>
-                  <option value="2">DHC</option>
-                  <option value="3">ファンケル</option>
+                <select name="brandmaker">
+                  <option value="">メーカーを選択してください</option>
+<?php
+foreach($makers as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                 </select>
               </div>
             </div>
