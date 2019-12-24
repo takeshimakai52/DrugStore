@@ -111,7 +111,7 @@ endforeach
                 メーカー
               </div>
               <div class="rowright">
-                <select name="maker" class="textrightbox">
+                <select name="maker" class="textrightbox" name="itemmaker">
                   <option value="">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($makers as $value):
