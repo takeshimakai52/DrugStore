@@ -1,9 +1,8 @@
 <?php
 	require 'common.php';
-
+  $maker = filter_input(INPUT_POST, 'genre');
   try{
-    $dbh=connect_db();
-		maker_new();
+		maker_new($maker);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

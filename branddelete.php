@@ -1,14 +1,14 @@
 <?php
   require 'common.php';
+	$id = filter_input(INPUT_POST, 'deleteid');
   try{
-    $dbh=connect_db();
+    
+		brand_delete($id);
+		
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
-
-  $editid = filter_input(INPUT_POST, 'editid');
-  $editname = filter_input(INPUT_POST, 'editname');
 
 ?>
 <!DOCTYPE html>
@@ -44,39 +44,18 @@
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
         <div class="maintitle">
-          　ジャンル編集
+          　ブランド削除
         </div>
         <div class="maincontents">
-          <div class="haku"></div>
-          <form action="genreeditconfirm.php" method="post">
-            <div class="touroku">
-              <div class="touroku_head">
-                ジャンル情報
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  ジャンルNo
-                </div>
-                <div class="rowright">
-                  <?= $editid ?>
-                  <input type='hidden' name='genreid' value='<?=$editid ?>'>
-                </div>
-              </div>
-              <div class="syouhinrow">
-                <div class="rowleft">
-                  ジャンル名
-                </div>
-                <div class="rowright">
-                  <input type="text" class="textrightbox" name="genrename" value="<?=$editname?>">
-                </div>
-              </div>
-              
-
-              <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
-              </div>
-            </div>
-          </form>
+					<div class="haku"></div>
+					<div class="genreconfirm">
+            <div class="confirmmessage">
+							ブランドを削除しました
+						</div>
+						<div class="genrelink">
+						  <a href="brand.php">ブランド一覧にも戻る</a>
+						</div>
+					</div>
         </div>
 
       </div>

@@ -1,8 +1,8 @@
 <?php
   require 'common.php';
-	
+	$id = filter_input(INPUT_POST, 'deleteid');
   try{
-		maker_delete();
+		maker_delete($id);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();

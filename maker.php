@@ -1,27 +1,16 @@
 <?php
+  session_start();
   require 'common.php';
+  $dbh=connect_db();
+  $sql = "SELECT * FROM maker";
+  $res = $dbh->query($sql);
+  if(isset($_SESSION["searchres"])){
+    $res = $_SESSION["searchres"];
+  }
+  unset($_SESSION['searchres']);
  
-  try{
-    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      $res = maker_serch($_POST["genreid"],$_POST["genrename"]);
-      if($res==""){
-        $dbh=connect_db();
-        $sql = "SELECT * FROM maker";
-        $res = $dbh->query($sql);
-      }
-    }else{
-      $dbh=connect_db();
-      $sql = "SELECT * FROM maker";
-      $res = $dbh->query($sql);
-    }
- 
-  }catch(PDOException $e) {
-    echo $e->getMessage();
-    die();
- }
   
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -58,20 +47,20 @@
         </div>
         <div class="maincontents">
           
-        <form action="" method="post">
+        <form action="makersearch.php" method="post">
           <div class="serchbox">
             <div class="itemname">
               <div class="itemname_title">
                 メーカーNo
               </div>
-              <input type="text" name="genreid"　value="">
+              <input type="text" name="makerid"　value="">
             </div>
             <div class="genre">
               <div class="genreselect">
                 <div class="itemname_title">
                   メーカー名
                 </div>
-                <input type="text" name="genrename">
+                <input type="text" name="makername">
               </div>
             </div>
             <button type="submit" name="itemsearch" class="itemserch">検索</button>

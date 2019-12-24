@@ -1,10 +1,9 @@
 <?php
-  require 'common.php';
-  $makername = filter_input(INPUT_POST, 'makername');
-  $makerid = filter_input(INPUT_POST, 'makerid');
-	
+	require 'common.php';
+  $brand = filter_input(INPUT_POST, 'genre');
+  $maker_id = filter_input(INPUT_POST, 'maker_id');
   try{
-		maker_edit($makername,$makerid);
+    brand_new($brand,$maker_id);
 		
   }catch(PDOException $e) {
     echo $e->getMessage();
@@ -45,16 +44,16 @@
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
         <div class="maintitle">
-          　メーカー編集
+          　ブランド登録
         </div>
         <div class="maincontents">
 					<div class="haku"></div>
 					<div class="genreconfirm">
             <div class="confirmmessage">
-							メーカーを編集しました
+							ブランドを登録しました
 						</div>
 						<div class="genrelink">
-						  <a href="maker.php">メーカー一覧にも戻る</a>
+						  <a href="brand.php">ブランド一覧に戻る</a>
 						</div>
 					</div>
         </div>

@@ -1,14 +1,31 @@
 <?php
   require 'common.php';
+  $editid = filter_input(INPUT_POST, 'editid');
+  $editname = filter_input(INPUT_POST, 'editname');
+  $editmaker_id = filter_input(INPUT_POST, 'editmaker_id');
+  
+  function maker_name($maker_id){
+    $dbh=connect_db();
+    $query = "SELECT * FROM maker WHERE id = :maker_id";
+    $stmt  = $dbh->prepare($query);
+    $stmt -> bindValue(':maker_id', $maker_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $maker=$stmt->fetchAll();
+    foreach($maker as $value){
+      $maker_name=$value['name'];
+    }
+    return $maker_name;
+  }
+
   try{
     $dbh=connect_db();
+    $sql2 = "SELECT * FROM maker";
+    $res2 = $dbh->query($sql2);
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
 
-  $editid = filter_input(INPUT_POST, 'editid');
-  $editname = filter_input(INPUT_POST, 'editname');
 
 ?>
 <!DOCTYPE html>
@@ -44,30 +61,47 @@
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
         <div class="maintitle">
-          　ジャンル編集
+          　ブランド編集
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="genreeditconfirm.php" method="post">
+          <form action="brandeditconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
-                ジャンル情報
+                ブランド情報
               </div>
               <div class="syouhinrow">
                 <div class="rowleft">
-                  ジャンルNo
+                  ブランドNo
                 </div>
                 <div class="rowright">
                   <?= $editid ?>
-                  <input type='hidden' name='genreid' value='<?=$editid ?>'>
+                  <input type='hidden' name='id' value='<?=$editid ?>'>
                 </div>
               </div>
               <div class="syouhinrow">
                 <div class="rowleft">
-                  ジャンル名
+                  ブランド名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genrename" value="<?=$editname?>">
+                  <input type="text" class="textrightbox" name="genre" value="<?=$editname?>">
+                </div>
+              </div>
+              <div class="syouhinrow">
+                <div class="rowleft">
+                  メーカー名
+                </div>
+                <div class="rowright">
+                  <select name="maker_id">
+                    <option value="<?=$editmaker_id?>"><?=maker_name($editmaker_id)?></option>
+<?php
+foreach($res2 as $value):
+?>
+                    <option value="<?=$value['id']?>"><?=$value['name']?></option>
+<?php
+endforeach
+?>
+                  </select>
                 </div>
               </div>
               

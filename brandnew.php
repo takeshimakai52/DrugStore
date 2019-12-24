@@ -2,14 +2,21 @@
   require 'common.php';
   try{
     $dbh=connect_db();
+    $sql = "SELECT * FROM brand order by id desc limit 1";
+    $res = $dbh->query($sql);
+    
+    $sql2 = "SELECT * FROM maker";
+    $res2 = $dbh->query($sql2);
+    
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
-
-  $editid = filter_input(INPUT_POST, 'editid');
-  $editname = filter_input(INPUT_POST, 'editname');
-
+ foreach( $res as $value ) {
+   $a="$value[id]";
+  }
+  
+$test=array("0","1","2");
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,33 +51,47 @@
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
         <div class="maintitle">
-          　ジャンル編集
+          　ブランド登録
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="genreeditconfirm.php" method="post">
+          <form action="brandconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
-                ジャンル情報
+                ブランド情報
               </div>
               <div class="syouhinrow">
                 <div class="rowleft">
-                  ジャンルNo
+                  ブランドNo
                 </div>
                 <div class="rowright">
-                  <?= $editid ?>
-                  <input type='hidden' name='genreid' value='<?=$editid ?>'>
+                  <?= $a+1 ?>
                 </div>
               </div>
               <div class="syouhinrow">
                 <div class="rowleft">
-                  ジャンル名
+                  ブランド名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genrename" value="<?=$editname?>">
+                  <input type="text" class="textrightbox" name="genre">
                 </div>
               </div>
-              
+              <div class="syouhinrow">
+                <div class="rowleft">
+                  メーカー名
+                </div>
+                <div class="rowright">
+                <select name="maker_id">
+<?php
+foreach($res2 as $value):
+?>
+                  <option value="<?=$value['id']?>"><?=$value['name']?></option>
+<?php
+endforeach
+?>
+                </select>
+                </div>
+              </div>
 
               <div class="tourokubtn">
                 <button type="submit" name="itemsearch" class="itemserch">登録</button>
@@ -81,5 +102,12 @@
 
       </div>
     </div>
+<?php
+  foreach( $test as $value ):
+?>
+    <a href= "genreitems<?=$value?>.php" >tesuto<?=$value?></a>
+<?php
+  endforeach
+?>
   </body>
 </html>
