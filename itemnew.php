@@ -94,7 +94,7 @@
                 ジャンル
               </div>
               <div class="rowright">
-                <select name="genre" class="textrightbox" name="itemgenre">
+                <select class="textrightbox" name="itemgenre">
                   <option value="">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($genres as $value):
@@ -111,7 +111,7 @@ endforeach
                 メーカー
               </div>
               <div class="rowright">
-                <select name="maker" class="textrightbox" name="itemmaker">
+                <select class="textrightbox" name="itemmaker">
                   <option value="">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($makers as $value):
@@ -129,12 +129,12 @@ endforeach
               </div>
               <div class="rowright">
 <!-- 上記のメーカーが選択されていたら、そのidに紐づくbrand以外はjsで非表示にする -->
-                <select name="brand" class="textrightbox">
+                <select  class="textrightbox" name="itembrand">
                   <option value="">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($brands as $value):
 ?>                 
-                  <option value="<?=$value['id']?>"　name="<?=$value['maker_id']?>"><?=$value['name']?></option>
+                  <option value="<?=$value['id']?>"><?=$value['name']?></option>
 <?php
 endforeach
 ?>
@@ -147,7 +147,7 @@ endforeach
                 商品画像
               </div>
               <div class="rowright">
-                <input type="file" name="pic">
+                <input type="file" name="image">
               </div>
             </div>
             <div class="syouhinrow">
@@ -163,7 +163,7 @@ endforeach
                 商品説明
               </div>
               <div class="rowright">
-                <textarea name="description" rows="5" class="textrightbox" ></textarea>
+                <textarea name="catch_copy" rows="5" class="textrightbox" ></textarea>
               </div>
             </div>
             <div class="tourokubtn">
