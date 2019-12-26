@@ -33,7 +33,7 @@
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-    <script src="vali.js"></script>
+    <script src="item.js"></script>
   </head>
   <body>
     <div class="header">
@@ -111,8 +111,8 @@ endforeach
                 メーカー
               </div>
               <div class="rowright">
-                <select class="textrightbox" name="itemmaker">
-                  <option value="">---　　　　　　　　 　　　　 </option>
+                <select class="textrightbox" name="itemmaker" onchange="changebrand()">
+                  <option value="" >---　　　　　　　　 　　　　 </option>
 <?php
 foreach($makers as $value):
 ?>                 
@@ -129,12 +129,12 @@ endforeach
               </div>
               <div class="rowright">
 <!-- 上記のメーカーが選択されていたら、そのidに紐づくbrand以外はjsで非表示にする -->
-                <select  class="textrightbox" name="itembrand">
-                  <option value="">---　　　　　　　　 　　　　 </option>
+                <select  class="textrightbox" id="brandselect" name="itembrand">
+                  <option value="misentaku">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($brands as $value):
 ?>                 
-                  <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                  <option disabled value="<?=$value['id']?>" name="brandoption<?=$value['maker_id']?>"><?=$value['name']?></option>
 <?php
 endforeach
 ?>
