@@ -268,4 +268,6 @@ function brand_edit($brand,$maker_id,$id){
   $stmt->execute($params);
 }
 
+
+
 ?>

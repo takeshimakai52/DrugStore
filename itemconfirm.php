@@ -9,7 +9,6 @@
   $catch_copy = filter_input(INPUT_POST, 'catch_copy');
   $upfile = $_FILES['image'];
 
-  echo $itembrand;
   
   function item_new($name,$price,$itemgenre,$itemmaker,$itembrand,$component,$catch_copy,$upfile){    
     if ($upfile['error'] > 0) {
@@ -59,13 +58,13 @@
   }
 
   try{
-		//item_new($name,$price,$itemgenre,$itemmaker,$itembrand,$component,$catch_copy,$upfile);	
+		item_new($name,$price,$itemgenre,$itemmaker,$itembrand,$component,$catch_copy,$upfile);	
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
 
- //header("location:item.php");
+ header("location:item.php");
 
 
 ?>

@@ -1,11 +1,21 @@
 <?php
+session_start();
 require 'common.php';
 $dbh=connect_db();
 $sql = "SELECT * FROM item";
 $res = $dbh->query($sql);
-if(isset($_SESSION["searchres"])){
-  $res = $_SESSION["searchres"];
+if(isset($_SESSION["item_searchres"])){
+  $res = $_SESSION["item_searchres"];
 }
+unset($_SESSION['item_searchres']);
+$genresql = "SELECT * FROM genre";
+$makersql = "SELECT * FROM maker";
+$brandsql = "SELECT * FROM brand";
+$genres= $dbh->query($genresql);
+$makers= $dbh->query($makersql);
+$brands= $dbh->query($brandsql);
+
+
 function get_maker_name($maker_id){
   $dbh=connect_db();
   $query = "SELECT * FROM maker WHERE id = :maker_id";
@@ -82,7 +92,7 @@ function get_brand_name($brand_id){
           　商品一覧(商品管理)
         </div>
         <div class="maincontents">
-          <form action="" method="get">
+          <form action="itemsearch.php" method="post">
             <div class="serchbox">
               <div class="itemname">
                 <div class="itemname_title">
@@ -96,10 +106,14 @@ function get_brand_name($brand_id){
                     ジャンル
                   </div>
                   <select name="genre">
-                    <option value="">　　　　　　　　　　　 　</option>
-                    <option value="1">ミネラル</option>
-                    <option value="2">コスメ</option>
-                    <option value="3">健康食品</option>
+                    <option value="">---　　　　　　　　　　　</option>
+<?php
+foreach($genres as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                   </select>
                 </div>
               </div>
@@ -109,10 +123,14 @@ function get_brand_name($brand_id){
                     メーカー
                   </div>
                   <select name="maker">
-                    <option value="">　　　　　　　　 　　　　 </option>
-                    <option value="1">大塚製薬</option>
-                    <option value="2">DHC</option>
-                    <option value="3">ファンケル</option>
+                  <option value="">---　　　　　　　　　　　 </option>
+<?php
+foreach($makers as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                   </select>
                 </div>
               </div>
@@ -122,14 +140,14 @@ function get_brand_name($brand_id){
                     ブランド
                   </div>
                   <select name="brand">
-                    <option value="">　　　　　　　　 　　　　 </option>
-                    <option value="1">ネイチャーメイド</option>
-                    <option value="2">DHC</option>
-                    <option value="3">FANKEL</option>
-                    <option value="4">ULOS</option>
-                    <option value="5">インナーシグナル</option>
-                    <option value="6">カロリーメイト</option>
-                    <option value="7">大塚製薬</option>
+                  <option value="">---　　　　　　　　　　　 </option>
+<?php
+foreach($brands as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                   </select>
                 </div>
               </div>
@@ -204,11 +222,12 @@ foreach($res as $value):
                   <?=get_maker_name($value["maker_id"])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=get_maker_name($value["brand_id"])?>
+                  <?=get_brand_name($value["brand_id"])?>
                 </div>
-                <form action="" method="GET">
+                <form action="itemedit.php" method="POST">
                   <div class="syouhinbtn1">
                       <input type="submit" value="編集">
+                      <input type="hidden" value="<?=$value['id']?>">
                   </div>
                 </form>
                 <form action="" method="GET">
