@@ -226,8 +226,12 @@ foreach($res as $value):
                 </div>
                 <form action="itemedit.php" method="POST">
                   <div class="syouhinbtn1">
-                      <input type="submit" value="編集">
-                      <input type="hidden" value="<?=$value['id']?>">
+                    <input type="submit" value="編集">
+                    <input type='hidden' name='editid' value='<?=$value["id"]?>'>                    
+                    <input type="hidden" name="editname" value="<?=$value['name']?>">
+                    <input type="hidden" name="editgenreid" value="<?=$value['genre_id']?>">
+                    <input type="hidden" name="editmakerid" value="<?=$value['maker_id']?>">
+                    <input type="hidden" name="editbrandid" value="<?=$value['brand_id']?>">      
                   </div>
                 </form>
                 <form action="" method="GET">
