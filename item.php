@@ -1,11 +1,13 @@
 <?php
+session_start();
 require 'common.php';
 $dbh=connect_db();
 $sql = "SELECT * FROM item";
 $res = $dbh->query($sql);
-if(isset($_SESSION["searchres"])){
-  $res = $_SESSION["searchres"];
+if(isset($_SESSION["item_searchres"])){
+  $res = $_SESSION["item_searchres"];
 }
+unset($_SESSION['item_searchres']);
 $genresql = "SELECT * FROM genre";
 $makersql = "SELECT * FROM maker";
 $brandsql = "SELECT * FROM brand";
@@ -220,11 +222,12 @@ foreach($res as $value):
                   <?=get_maker_name($value["maker_id"])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=get_maker_name($value["brand_id"])?>
+                  <?=get_brand_name($value["brand_id"])?>
                 </div>
-                <form action="" method="GET">
+                <form action="itemedit.php" method="POST">
                   <div class="syouhinbtn1">
                       <input type="submit" value="編集">
+                      <input type="hidden" value="<?=$value['id']?>">
                   </div>
                 </form>
                 <form action="" method="GET">
