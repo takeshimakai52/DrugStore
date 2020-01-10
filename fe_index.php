@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
-function connect_db()
-{
-  $dsn = 'mysql:host=localhost;dbname=item;charset=utf8';
+function connect_db() {
+  $dsn = 'mysql:host=localhost;dbname=ecsite;charset=utf8';
   $username = 'root';
   $password = '';
   $options = [
@@ -10,109 +9,157 @@ function connect_db()
     , PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
   ];
   return new PDO($dsn, $username, $password, $options);
-}
-try {
-  // DBに接続する
+} try {
   $dbh = connect_db();
-  $sql = "SELECT * FROM itemname";
+  $sql = "SELECT * FROM item";
   $res = $dbh->query($sql);
 } catch (PDOException $e) {
   echo $e->getMessage();
   die();
 }
 
-$names=[];
-$genres=[];
-$brands=[];
-$manufacturers=[];
-$prices=[];
-$components=[];
-$sellings=[];
-$images=[];
+// $name=[];
+// $genre=[];
+// $brand=[];
+// $mfr=[];
+// $price=[];
+// $component[];
+// $selling=[];
+// $image=[];
 
- foreach($res as $value){
-   array_push($names, $value['name']);
-   array_push($genres, $value['genre']);
-   array_push($brands, $value['brand']);
-   array_push($manufacturers, $value['manufacturer']);
-   array_push($prices, $value['price']);
-   array_push($components, $value['component']);
-   array_push($sellings, $value['selling']);
-   array_push($images, $value['image']);
- }
-
- // var_dump ($names);
- // var_dump ($genres);
- // var_dump ($brands);
- // var_dump ($manufacturers);
- // var_dump ($prices);
- // var_dump ($components);
- // var_dump ($sellings);
- // var_dump ($images);
-
+// $genreID=[];
+// $brandID=[];
+// $mfrID=[];
 
 ?>
 
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>YTYDrugStore</title>
-  <link rel="stylesheet" href="frontEnd_style.css">
+  <title>DrugStore</title>
+  <link rel="stylesheet" type="text/css" href="fe_style.css">
 </head>
 <body>
-  <div class="frontEnd_header">
-    <span class="YTYTopLink_wrap">
-      <a href="http://localhost/php/shop/">YTYDrugStore</a>
-    </span>
-    <span class="searchByKeyword_wrap">
-      <input type="text" name="searchByKeyword_box">
-    </span>
-    <span class="searchButton_wrap">
-      <input type="button" name="searchButton_button" value="検索">
-    </span>
-    <span>
-      <a href="">ログイン</a>
-    </span>
-  </div>
-  <div class="sideMenu">
-    <h2>
-      ジャンル
-    </h2>
-    <div>
-      <?php foreach($genres as $value) {
-        echo $value;
-      } ?>
-      </div>
-      <h2>メーカー</h2>
-      <div>
-        <?php foreach($manufacturers as $value) {
-          echo $value;
-        } ?>
-      </div>
-      <h2>ブランド</h2>
-      <?php foreach($brands as $value) {
-        echo $value;
-      } ?>
+  <header>
+    <div class="title">
+      <a name="topLink" href="#">
+        <h1>DrugStore</h1>
+      </a>
     </div>
-    <div class="productList">
-      <h1>
-        商品一覧
-      </h1>
-      <?php foreach($names as $value) {
-        echo $value;
-      } ?>
-      <?php foreach($prices as $value) {
-        echo $value;
-      } ?>
-      <?php foreach($genres as $value) {
-        echo $value;
-      } ?>
-      <?php foreach($manufacturers as $value) {
-        echo $value;
-      } ?>
-      <?php foreach($brands as $value) {
-        echo $value;
-      } ?>
+    <div class="search">
+      <input type="text" name="searchBox_input">
+      <input type="button" name="searchButton_button" value="検索">
+    </div>
+    <div class="login">
+      <a href="">ログイン</a>
+    </div>
+  </header>
+</div>
+<div class="div_sideMenu">
+  <p class="h_sideMenu">ジャンル</p>
+  <ul>
+    <a href="">
+      <li>
+        健康食品
+      </li>
+    </a>
+    <a href="">
+      <li>
+        コスメ
+      </li>
+    </a>
+    <a href="">
+      <li>
+        ビタミン
+      </li>
+    </a>
+    <a href="">
+      <li>
+        ミネラル
+      </li>
+    </a>
+  </ul>
+  <p class="h_sideMenu">メーカー</p>
+  <ul>
+    <a href="">
+      <li>
+        DHC
+      </li>
+    </a>
+    <a href="">
+      <li>
+        大塚製薬
+      </li>
+    </a>
+    <a href="">
+      <li>
+        ファンケル
+      </li>
+    </a>
+  </ul>
+  <p class="h_sideMenu">ブランド</p>
+  <ul>
+    <a href="">
+      <li>
+        DHC
+      </li>
+    </a>
+    <a href="">
+      <li>
+        FANCL
+      </li>
+    </a>
+    <a href="">
+      <li>
+        ULOS
+      </li>
+    </a>
+    <a href="">
+      <li>
+        インナーシグナル
+      </li>
+    </a>
+    <a href="">
+      <li>
+        大塚製薬
+      </li>
+    </a>
+    <a href="">
+      <li>
+        カロリーメイト
+      </li>
+    </a>
+    <a href="">
+      <li>
+        ネイチャーメイド
+      </li>
+    </a>
+  </ul>
+</div>
+<div>
+  <p class="ichiranTitle">
+    商品一覧
+  </p>
+  <div class=div_items"">
+    <?php foreach($res as $value): ?>
+      <form action="" method="post">
+        <div class="div_item">
+          <div class="div_image">
+            <input type="image" src="<?php $value['image'] ?>">
+          </div>
+          <div class="div_itemInfo">
+              商品名：<?= $value['name'] ?><br>
+              価格：<?= $value['price'] ?><br>
+              <dr>
+              ジャンル：<?= $value['genre'] ?><br>
+              ブランド：<?= $value['brand'] ?><br>
+              メーカー：<?= $value['mfr'] ?><br>
+            </div>
+              <input name="genre" type="hidden" value="<?php $value['item_id'] ?>">
+            </div>
+          </form>
+        <?php endforeach ?>
+      </div>
     </div>
   </body>
-</html>
+  </html>
