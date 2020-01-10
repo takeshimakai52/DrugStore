@@ -240,8 +240,9 @@ foreach($res as $value):
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="itemdelete.php" method="POST">
                   <div class="syouhinbtn">
+                    <input type="hidden" name="deleteid" value='<?=$value["id"]?>'>
                     <input type="submit" value="削除">
                   </div>
                 </form>
