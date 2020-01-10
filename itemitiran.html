@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet"type="text/css"  href="kari.css">
+    <link rel="stylesheet"type="text/css"  href="normalize.css">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="vali.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="icon">
+        drug takayama
+      </div>
+      <div class="frontlink">
+        <a href="" class="frontbtn">
+          フロントエンド
+        </a>
+      </div>
+      <div class="logoutbtn">
+        <a href="" class="logout">
+          ログアウト
+        </a>
+      </div>
+    </div>
+    
+    <div class="ohako">
+      <div class="sidebar">
+        <ul class="menu">
+          <li>
+            <a href="" class="listmenu">商品一覧</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href=""class="listmenu">商品登録</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="genre.php" class="listmenu">ジャンル管理</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="maker.php" class="listmenu">メーカー管理</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="" class="listmenu">ブランド管理</a>
+          </li>
+          <div class="kasen"></div>
+          <li>
+            <a href="" class="listmenu">売価管理</a>
+          </li>
+          <div class="kasen"></div>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="maintitle">
+          　商品一覧(商品管理)
+        </div>
+        <div class="maincontents">
+          <form action="" method="get">
+            <div class="serchbox">
+              <div class="itemname">
+                <div class="itemname_title">
+                  商品名
+                </div>
+                <input type="text" name="itemname">
+              </div>
+              <div class="genre">
+                <div class="genreselect">
+                  <div class="itemname_title">
+                    ジャンル
+                  </div>
+                  <select name="genre">
+                    <option value="">　　　　　　　　　　　 　</option>
+                    <option value="1">ミネラル</option>
+                    <option value="2">コスメ</option>
+                    <option value="3">健康食品</option>
+                  </select>
+                </div>
+              </div>
+              <div class="genre">
+                <div class="genreselect">
+                  <div class="itemname_title">
+                    メーカー
+                  </div>
+                  <select name="maker">
+                    <option value="">　　　　　　　　 　　　　 </option>
+                    <option value="1">大塚製薬</option>
+                    <option value="2">DHC</option>
+                    <option value="3">ファンケル</option>
+                  </select>
+                </div>
+              </div>
+              <div class="genre">
+                <div class="genreselect">
+                  <div class="itemname_title">
+                    ブランド
+                  </div>
+                  <select name="brand">
+                    <option value="">　　　　　　　　 　　　　 </option>
+                    <option value="1">ネイチャーメイド</option>
+                    <option value="2">DHC</option>
+                    <option value="3">FANKEL</option>
+                    <option value="4">ULOS</option>
+                    <option value="5">インナーシグナル</option>
+                    <option value="6">カロリーメイト</option>
+                    <option value="7">大塚製薬</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" name="itemsearch" class="itemserch">検索</button>
+            </div>
+          </form>
+          <div class="itemshow">
+            <div class="itemshowbox">
+              <div class="itemlabel">
+                <div class="itemnum">
+                  No.
+                </div>
+                <div class="itempic">
+                  画像
+                </div>
+                <div class="itemmei">
+                  商品名
+                </div>
+                <div class="itemmei">
+                  通常価格
+                </div>
+                <div class="itemmei">
+                  販売価格
+                </div>
+                <div class="itemgenre">
+                  ジャンル
+                </div>
+                <div class="itemmaker">
+                  メーカー
+                </div>
+                <div class="itembrand">
+                  ブランド
+                </div>
+                <div class="itembrand">
+                
+                </div>
+                <div class="itembrand">
+                
+                </div>
+                <div class="itembrand">
+                  
+                </div>
+              </div>
+
+              <div class="syouhin">
+                <div class="syouhinnum">
+                  1
+                </div>
+                <div class="syouhingazou">
+                  <img src="aburitoro.png" width="60" height="60"　alt="aburitoro" title="炙りトロ">
+                </div>
+                <div class="syouhinname">
+                  炙りトロ
+                </div>
+                <div class="syouhinname">
+                  400円
+                </div>
+                <div class="syouhinname">
+                  400円
+                </div>
+                <div class="syouhingenre">
+                  お寿司
+                </div>
+                <div class="syouhinmaker">
+                  大塚製薬
+                </div>
+                <div class="syouhinbrand">
+                  おいしいお寿司
+                </div>
+                <form action="" method="GET">
+                  <div class="syouhinbtn1">
+                      <input type="submit" value="編集">
+                  </div>
+                </form>
+                <form action="" method="GET">
+                  <div class="syouhinbtn">
+                    <input type="submit" value="売価変更">
+                  </div>
+                </form>
+                <form action="" method="GET">
+                  <div class="syouhinbtn">
+                    <input type="submit" value="削除">
+                  </div>
+                </form>
+              </div>
+              <div class="syouhin">
+                <div class="syouhinnum">
+                  2
+                </div>
+                <div class="syouhingazou">
+                  <img src="tuna.png" width="60" height="60"　alt="tunamayo" title="ツナマヨの軍艦巻き">
+                </div>
+                <div class="syouhinname">
+                  ツナマヨの軍艦巻き
+                </div>
+                <div class="syouhinname">
+                  400円
+                </div>
+                <div class="syouhinname">
+                  400円
+                </div>
+                <div class="syouhingenre">
+                  お寿司
+                </div>
+                <div class="syouhinmaker">
+                  大塚製薬
+                </div>
+                <div class="syouhinbrand">
+                  おいしいお寿司
+                </div>
+                <form action="" method="GET">
+                  <div class="syouhinbtn1">
+                      <input type="submit" value="編集">
+                  </div>
+                </form>
+                <form action="" method="GET">
+                  <div class="syouhinbtn">
+                    <input type="submit" value="売価変更">
+                  </div>
+                </form>
+                <form action="" method="GET">
+                  <div class="syouhinbtn">
+                    <input type="submit" value="削除">
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
