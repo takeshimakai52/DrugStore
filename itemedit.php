@@ -1,34 +1,70 @@
 <?php
   require 'common.php';
-  $aaa = filter_input(INPUT_POST, 'aaaaaaaaa');
   $editid = filter_input(INPUT_POST, 'editid');
-  $editname = filter_input(INPUT_POST, 'editname');
-  $editgenreid = filter_input(INPUT_POST, 'editgenreid');
-  $editmakerid = filter_input(INPUT_POST, 'editmakerid');
-  $editbrandid = filter_input(INPUT_POST, 'editbrandid');
-  echo $editid."<br>";
-  echo $editname."<br>";
-  echo $editgenreid."<br>";
-  echo $editmakerid."<br>";
-  echo $editbrandid."<br>";
 
-  function get_edititem(){
-    // $dbh=connect_db();
-    // $query ="SELECT * FROM item WHERE id = :editid "
-    // //$stmt  = $dbh->prepare($itemsql);
-    // $aaa= $dbh->prepare($query);
-    // if($editid) $aaa -> bindValue(':editid',$editid, PDO::PARAM_INT);
-    // $aaa->execute();
-    // $serched=$aaa->fetchAll();
-    // return $serched;
+  function get_edit_item($id){
     $dbh=connect_db();
-      $query = "SELECT * FROM item WHERE id = :editid ";
-      $stmt  = $dbh->prepare($query);
-      if($editid) $stmt -> bindValue(':editid',$editid, PDO::PARAM_INT);
-      echo $query;
-      $stmt->execute();
-      $serched=$stmt->fetchAll();
-      return $serched;
+    $query = "SELECT * FROM item WHERE id = :id";
+    $stmt  = $dbh->prepare($query);
+    $stmt -> bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $tagitem=$stmt->fetchAll();
+    return $tagitem;
+  }
+
+  $tagedititem=get_edit_item($editid);
+
+  foreach($tagedititem as $value){
+    $editid = $value["id"];
+    $editname =  $value["name"];
+    $editprice = $value["price"];
+    $editgenreid = $value["genre_id"];
+    $editmakerid = $value["maker_id"];
+    $editbrandid = $value["brand_id"];
+    $editcomponent=$value["component"];
+    $editcatch_copy=$value["catch_copy"];
+    $editfilepath=$value["filepath"];
+  }
+  $disp_image='<img src="$editfilepath">';
+  
+
+  function get_maker_name($maker_id){
+    $dbh=connect_db();
+    $query = "SELECT * FROM maker WHERE id = :maker_id";
+    $stmt  = $dbh->prepare($query);
+    $stmt -> bindValue(':maker_id', $maker_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $maker=$stmt->fetchAll();
+    foreach($maker as $value){
+      $maker_name=$value['name'];
+    }
+    return $maker_name;
+  }
+  
+  function get_genre_name($genre_id){
+    $dbh=connect_db();
+    $query = "SELECT * FROM genre WHERE id = :genre_id";
+    $stmt  = $dbh->prepare($query);
+    $stmt -> bindValue(':genre_id', $genre_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $genre=$stmt->fetchAll();
+    foreach($genre as $value){
+      $genre_name=$value['name'];
+    }
+    return $genre_name;
+  }
+  
+  function get_brand_name($brand_id){
+    $dbh=connect_db();
+    $query = "SELECT * FROM brand WHERE id = :brand_id";
+    $stmt  = $dbh->prepare($query);
+    $stmt -> bindValue(':brand_id', $brand_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $brand=$stmt->fetchAll();
+    foreach($brand as $value){
+      $brand_name=$value['name'];
+    }
+    return $brand_name;
   }
 
   try{
@@ -52,14 +88,6 @@
     die();
  }
 
- foreach( $res as $value ) {
-   $a="$value[id]";
-  }
-
-  // foreach($edititem as $value){
-  //   echo $value["name"];
-  // }
-  
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,11 +122,11 @@
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
         <div class="maintitle">
-          　商品登録
+          　商品編集
         </div>
         <div class="maincontents">
         <div class="haku"></div>
-        <form action="itemconfirm.php" method="post" enctype="multipart/form-data"> 
+        <form action="itemeditconfirm.php" method="post" enctype="multipart/form-data"> 
           <div class="touroku">
             <div class="touroku_head">
               商品情報
@@ -108,7 +136,8 @@
                 商品No
               </div>
               <div class="rowright">
-                <?=$a+1?>
+                <?=$editid?>
+                <input type="hidden" name="id" value="<?=$editid?>">
               </div>
             </div>
             <div class="syouhinrow">
@@ -116,7 +145,7 @@
                 商品名
               </div>
               <div class="rowright">
-                <input type="text" class="textrightbox" name="name" value="">
+                <input type="text" class="textrightbox" name="name" value="<?=$editname?>">
               </div>
             </div>
             <div class="syouhinrow">
@@ -124,7 +153,7 @@
                 通常価格
               </div>
               <div class="rowright">
-                <input type="text" class="textrightbox" name="price">
+                <input type="text" class="textrightbox" name="price" value="<?=$editprice?>">
               </div>
             </div>
             <div class="syouhinrow">
@@ -133,7 +162,7 @@
               </div>
               <div class="rowright">
                 <select class="textrightbox" name="itemgenre">
-                  <option value="">---　　　　　　　　 　　　　 </option>
+                  <option value="<?=$editgenreid?>"><?=get_genre_name($editgenreid)?> </option>
 <?php
 foreach($genres as $value):
 ?>                 
@@ -150,7 +179,7 @@ endforeach
               </div>
               <div class="rowright">
                 <select class="textrightbox" name="itemmaker" onchange="changebrand()">
-                  <option value="" >---　　　　　　　　 　　　　 </option>
+                  <option value="<?=$editmakerid?>"><?=get_maker_name($editmakerid)?></option>
 <?php
 foreach($makers as $value):
 ?>                 
@@ -168,7 +197,7 @@ endforeach
               <div class="rowright">
 <!-- 上記のメーカーが選択されていたら、そのidに紐づくbrand以外はjsで非表示にする -->
                 <select  class="textrightbox" id="brandselect" name="itembrand">
-                  <option value="misentaku">---　　　　　　　　 　　　　 </option>
+                  <option value="<?=$editbrandid?>"><?=get_brand_name($editbrandid)?></option>
 <?php
 foreach($brands as $value):
 ?>                 
@@ -182,7 +211,16 @@ endforeach
 
             <div class="syouhinrow">
               <div class="rowleft">
-                商品画像
+                現在の商品画像
+              </div>
+              <div class="rowright">
+                <img src="<?=$editfilepath?>" width="100" height="100"　alt="aburitoro" title="炙りトロ">
+                <input type="hidden" name="oldpath" value="<?=$editfilepath?>">
+              </div>
+            </div>
+            <div class="syouhinrow">
+              <div class="rowleft">
+                新規商品画像
               </div>
               <div class="rowright">
                 <input type="file" name="image">
@@ -193,7 +231,7 @@ endforeach
                 成分
               </div>
               <div class="rowright">
-                <textarea name="seibun" rows="5" class="textrightbox" ></textarea>
+                <textarea name="seibun" rows="5" class="textrightbox" ><?=$editcomponent?></textarea>
               </div>
             </div>
             <div class="syouhinrow">
@@ -201,7 +239,7 @@ endforeach
                 商品説明
               </div>
               <div class="rowright">
-                <textarea name="catch_copy" rows="5" class="textrightbox" ></textarea>
+                <textarea name="catch_copy" rows="5" class="textrightbox" ><?=$editcatch_copy?></textarea>
               </div>
             </div>
             <div class="tourokubtn">

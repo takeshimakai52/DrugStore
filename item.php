@@ -229,6 +229,7 @@ foreach($res as $value):
                     <input type="submit" value="編集">
                     <input type='hidden' name='editid' value='<?=$value["id"]?>'>                    
                     <input type="hidden" name="editname" value="<?=$value['name']?>">
+                    <input type="hidden" name="editprice" value="<?=$value['price']?>">
                     <input type="hidden" name="editgenreid" value="<?=$value['genre_id']?>">
                     <input type="hidden" name="editmakerid" value="<?=$value['maker_id']?>">
                     <input type="hidden" name="editbrandid" value="<?=$value['brand_id']?>">      
