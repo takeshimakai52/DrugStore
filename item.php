@@ -235,8 +235,9 @@ foreach($res as $value):
                     <input type="hidden" name="editbrandid" value="<?=$value['brand_id']?>">      
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="baikanew.php" method="POST">
                   <div class="syouhinbtn">
+                    <input type='hidden' name='baikaid' value='<?=$value["id"]?>'>
                     <input type="submit" value="売価変更">
                   </div>
                 </form>

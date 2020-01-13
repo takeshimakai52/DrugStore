@@ -21,7 +21,7 @@
     </li>
     <div class="kasen"></div>
     <li>
-      <a href="" class="listmenu">売価管理</a>
+      <a href="baika.php" class="listmenu">売価管理</a>
     </li>
     <div class="kasen"></div>
   </ul>
