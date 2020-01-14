@@ -215,13 +215,13 @@ function get_brand_name($brand_id){
                   メーカー
                 </div>
                 <div class="itembrand">
-                  ブランド
+                 from
                 </div>
                 <div class="itembrand">
-                
+                  to
                 </div>
                 <div class="itembrand">
-                
+                  
                 </div>
                 <div class="itembrand">
                   
@@ -253,13 +253,11 @@ foreach($start_price as $value):
                   <?=get_maker_name(get_sale_item($value["item_id"])[4])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=get_brand_name(get_sale_item($value["item_id"])[3])?>
+                  <?=$value["fromdate"]?>
                 </div>
-                <form action="" method="GET">
-                  <div class="syouhinbtn1">
-                      <!-- <input type="submit" value="編集"> -->
-                  </div>
-                </form>
+                <div class="syouhinbrand">
+                  <?=$value["todate"]?>
+                </div>
                 <form action="baikaedit.php" method="post">
                   <div class="syouhinbtn">
                     <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
@@ -267,8 +265,10 @@ foreach($start_price as $value):
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="baikaend.php" method="post">
                   <div class="syouhinbtn">
+                    <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
+                    <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
                     <input type="submit" value="終了">
                   </div>
                 </form>
@@ -305,10 +305,10 @@ endforeach
                   メーカー
                 </div>
                 <div class="itembrand">
-                  ブランド
+                  from
                 </div>
                 <div class="itembrand">
-                
+                  to
                 </div>
                 <div class="itembrand">
                 
@@ -344,13 +344,11 @@ foreach($future_price as $value):
                   <?=get_maker_name(get_sale_item($value["item_id"])[4])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=get_brand_name(get_sale_item($value["item_id"])[3])?>
+                  <?=$value["fromdate"]?>
                 </div>
-                <form action="" method="GET">
-                  <div class="syouhinbtn1">
-                      <!-- <input type="submit" value="編集"> -->
-                  </div>
-                </form>
+                <div class="syouhinbrand">
+                  <?=$value["todate"]?>
+                </div>
                 <form action="baikaedit.php" method="post">
                   <div class="syouhinbtn">
                     <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
@@ -398,10 +396,10 @@ endforeach
                   メーカー
                 </div>
                 <div class="itembrand">
-                  ブランド
+                  from
                 </div>
                 <div class="itembrand">
-                
+                  to
                 </div>
                 <div class="itembrand">
                 
@@ -437,13 +435,11 @@ foreach($start_end_price as $value):
                   <?=get_maker_name(get_sale_item($value["item_id"])[4])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=get_brand_name(get_sale_item($value["item_id"])[3])?>
+                  <?=$value["fromdate"]?>
                 </div>
-                <form action="" method="GET">
-                  <div class="syouhinbtn1">
-                      <!-- <input type="submit" value="編集"> -->
-                  </div>
-                </form>
+                <div class="syouhinbrand">
+                  <?=$value["todate"]?>
+                </div>
                 <form action="" method="GET">
                   <div class="syouhinbtn">
                     <!-- <input type="submit" value="売価変更"> -->
