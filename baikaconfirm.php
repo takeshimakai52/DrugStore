@@ -35,5 +35,5 @@
     die();
  }
 
- //header("location:item.php");
+ header("location:baika.php");
 ?>

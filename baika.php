@@ -260,8 +260,10 @@ foreach($start_price as $value):
                       <!-- <input type="submit" value="編集"> -->
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="baikaedit.php" method="post">
                   <div class="syouhinbtn">
+                    <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
+                    <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
@@ -349,8 +351,10 @@ foreach($future_price as $value):
                       <!-- <input type="submit" value="編集"> -->
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="baikaedit.php" method="post">
                   <div class="syouhinbtn">
+                    <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
+                    <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
