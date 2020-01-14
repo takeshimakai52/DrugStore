@@ -356,8 +356,9 @@ foreach($future_price as $value):
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
-                <form action="" method="GET">
+                <form action="baikadelete.php" method="post">
                   <div class="syouhinbtn">
+                    <input type="hidden" name="delete_saleprice_id" value="<?=$value["id"]?>">
                     <input type="submit" value="削除">
                   </div>
                 </form>
