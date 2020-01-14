@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+
 function connect_db() {
   $dsn = 'mysql:host=localhost;dbname=sample;charset=utf8';
   $username = 'root';
@@ -10,23 +11,26 @@ function connect_db() {
   ];
   return new PDO($dsn, $username, $password, $options);
 } try {
+  $pickId = $_GET['id'];
   $dbh = connect_db();
   $sql = "SELECT
-  item.*,
-  brand.name as brand_name,
-  genre.name as genre_name,
-  maker.name as maker_name
-  FROM
-  item
-  INNER JOIN
-  brand
-  ON item.brand_id = brand.id
-  INNER JOIN
-  genre
-  ON item.genre_id = genre.id
-  INNER JOIN
-  maker
-  ON item.maker_id = maker.id";
+            item.*,
+            brand.name as brand_name,
+            genre.name as genre_name,
+            maker.name as maker_name
+          FROM
+            item
+          INNER JOIN
+            brand
+            ON item.brand_id = brand.id
+          INNER JOIN
+            genre
+            ON item.genre_id = genre.id
+          INNER JOIN
+            maker
+            ON item.maker_id = maker.id
+          WHERE
+            item.id = $pickId";
   $res = $dbh->query($sql);
 } catch (PDOException $e) {
   echo $e->getMessage();
@@ -146,9 +150,7 @@ function connect_db() {
     <?php foreach($res as $value): ?>
         <div class="div_item">
           <div class="div_image">
-            <a href="/DrugStore/fe_itemDetail.php?id=<?= $value['id'] ?>">
               <img src="./fe_img/<?= $value['filepath'] ?>" alt="" width="200" height="200">
-            </a>
           </div>
           <div class="div_itemInfo">
               商品名：<?= $value['name'] ?><br>
@@ -157,10 +159,15 @@ function connect_db() {
               ジャンル：<?= $value['genre_name'] ?><br>
               ブランド：<?= $value['brand_name'] ?><br>
               メーカー：<?= $value['maker_name'] ?><br>
+              成分：<?= $value['component'] ?><br>
+              ポイント：<?= $value['catch_copy']?><br>
             </div>
               <input name="genre" type="hidden" value="<?php $value['id'] ?>">
             </div>
         <?php endforeach ?>
+        <a href="/DrugStore/fe_index.php">
+          TOPページに戻る
+        </a>
       </div>
     </div>
   </body>
