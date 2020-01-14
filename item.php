@@ -55,6 +55,45 @@ function get_brand_name($brand_id){
   return $brand_name;
 }
 
+$sql = "SELECT * FROM saleprice";
+$salepriceis = $dbh->query($sql);
+$start_end_price=[];
+$start_price=[];
+$future_price=[];
+foreach($salepriceis as $value){
+  $date1=new DateTime($value["fromdate"]);
+  $date2=new DateTime($value["todate"]);
+  $nowdate = new DateTime('now');
+  $test =[]; 
+  array_push($test,$value);
+  if($date1<$nowdate){
+  //始まっている
+    if($date2<$nowdate){
+    //終わっている
+    array_push($start_end_price,$value);
+    }else{
+    //終わっていない
+    array_push($start_price,$value);
+    }
+  }else{
+  //始まっていない
+    array_push($future_price,$value);
+  }
+}
+function search_saleprice($item_id,$start_price,$price){
+  $item_id_array=array_column($start_price, 'item_id');
+  $testresult = array_search($item_id, $item_id_array);
+  if($testresult===false){
+    return $price;
+  }else{
+
+    return $start_price[$testresult]["saleprice"];
+  }
+}
+
+//echo search_saleprice(30,$start_price,999);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -213,7 +252,7 @@ foreach($res as $value):
                   <?=$value["price"]?>円
                 </div>
                 <div class="syouhinname">
-                  <?=$value["price"]?>円
+                  <?=search_saleprice($value["id"],$start_price,$value["price"])?>円
                 </div>
                 <div class="syouhingenre">
                   <?=get_genre_name($value["genre_id"])?>
@@ -235,11 +274,26 @@ foreach($res as $value):
                     <input type="hidden" name="editbrandid" value="<?=$value['brand_id']?>">      
                   </div>
                 </form>
-                <form action="" method="GET">
+<?php
+if(search_saleprice($value["id"],$start_price,$value["price"])==$value["price"]):
+?>
+                <form action="baikanew.php" method="POST">
                   <div class="syouhinbtn">
+                    <input type='hidden' name='baikaid' value='<?=$value["id"]?>'>
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
+<?php
+else:
+?>
+                <form action="baika.php" method="POST">
+                  <div class="syouhinbtn">
+                    <input type="submit" value="売価管理へ">
+                  </div>
+                </form>
+<?php
+endif
+?>
                 <form action="itemdelete.php" method="POST">
                   <div class="syouhinbtn">
                     <input type="hidden" name="deleteid" value='<?=$value["id"]?>'>
