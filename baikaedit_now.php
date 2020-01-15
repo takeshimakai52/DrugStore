@@ -2,7 +2,6 @@
 require 'common.php';
 $id = filter_input(INPUT_POST, 'edit_saleprice_id');
 $itemid = filter_input(INPUT_POST, 'edit_saleprice_item_id');
-$nowdate = new DateTime('now');
 
 function get_edit_saleprice($id){
   $dbh=connect_db();
@@ -97,7 +96,6 @@ function get_brand_name($brand_id){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="vali.js"></script>
-    <script src="baika_vali.js"></script>
   </head>
   <body>
     <div class="header">
@@ -222,11 +220,10 @@ function get_brand_name($brand_id){
             </div>
             <div class="syouhinrow">
               <div class="rowleft">
-                from
+                from(＊変更不可＊)
               </div>
               <div class="rowright">
-                <input type="date" name="fromdate" class="textrightbox" value="<?=$editfrom?>" required id="fromdate">
-                
+                <input type="date" name="fromdate" class="textrightbox" value="<?=$editfrom?>" required readonly>
               </div>
             </div>
             <div class="syouhinrow">
@@ -237,8 +234,9 @@ function get_brand_name($brand_id){
                 <input type="date" name="todate" class="textrightbox" value="<?=$editto?>" required>
               </div>
             </div>
+
             <div class="tourokubtn">
-              <button type="submit" name="itemsearch" class="itemserch" >登録</button>
+              <button type="submit" name="itemsearch" class="itemserch">登録</button>
             </div>
             </form>
           </div>
