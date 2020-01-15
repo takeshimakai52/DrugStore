@@ -6,10 +6,10 @@
   $maker = filter_input(INPUT_POST, 'maker');
   $brand = filter_input(INPUT_POST, 'brand');
 
-  echo $name."<br>";
-  echo "genre".$genre."<br>";
-  echo "maker".$maker."<br>";
-  echo "brand".$brand."<br>";
+  // echo $name."<br>";
+  // echo "genre".$genre."<br>";
+  // echo "maker".$maker."<br>";
+  // echo "brand".$brand."<br>";
 
   function item_serch($name,$genre,$maker,$brand){
     $dbh=connect_db();
@@ -85,8 +85,8 @@
       if($genre) $stmt -> bindValue(':genre',$genre, PDO::PARAM_INT);
       if($maker) $stmt -> bindValue(':maker', $maker, PDO::PARAM_INT);
       if($brand) $stmt -> bindValue(':brand', $brand, PDO::PARAM_INT);
-      echo $sqlFlg;
-      echo $query;
+      // echo $sqlFlg;
+      // echo $query;
       $stmt->execute();
       $serched=$stmt->fetchAll();
       return $serched;
@@ -95,19 +95,53 @@
       return false;
     }
   }
-  
-  
+    
   try{
-    if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
-      $res = item_serch($name,$genre,$maker,$brand);
-      if($res==""){
+    if(filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST') {
+      $searched_items = item_serch($name,$genre,$maker,$brand);
+      $itemids=[];
+      //var_dump($searched_items);
+      // $saleprice_itemids=[];
+      if($searched_items==""){
         $dbh=connect_db();
-        $sql = "SELECT * FROM item";
+        $sql = "SELECT * FROM saleprice";
         $res = $dbh->query($sql);
+      }else{
+        $res=[];
+        $dbh=connect_db();
+        $sql = "SELECT * FROM saleprice";
+        $baikas = $dbh->query($sql);
+        // var_dump($baikas);
+        // foreach($baikas as $value){
+        //  echo $value["id"];
+        // }
+        foreach($searched_items as $value){
+          array_push($itemids,$value["id"]);
+        }
+        //var_dump($itemids);
+        //echo count($itemids);
+
+        for($i = 0; $i < count($itemids); $i++){
+          echo $i."回目".$itemids[$i]."<br>";
+          $baikas = $dbh->query($sql);
+          foreach($baikas as $value){
+            echo "cheack"."<br>";
+            //echo $itemids[$i];
+            //echo $value["item_id"];
+            if($value["item_id"]==$itemids[$i]){
+              echo "合致したsalepriceのId".$value["id"]."<br>";
+              echo "合致したsalepriceのitem_id".$value["item_id"]."<br>";
+              array_push($res,$value);
+            }else{
+              echo "違う!"."<br>";
+            }
+          }
+        }
+
       }
     }else{
       $dbh=connect_db();
-      $sql = "SELECT * FROM item";
+      $sql = "SELECT * FROM saleprice";
       $res = $dbh->query($sql);
     }
 
@@ -117,7 +151,11 @@
   }
 
   $_SESSION['item_searchres'] = $res;
+  // var_dump($res);
+  foreach($res as $value){
+    echo $value["id"];
+  }
 
-  //header("location:item.php")
+  header("location:baika.php")
 
 ?>

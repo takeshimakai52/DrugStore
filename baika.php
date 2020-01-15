@@ -4,9 +4,21 @@ require 'common.php';
 $dbh=connect_db();
 $sql = "SELECT * FROM saleprice";
 $res = $dbh->query($sql);
+if(isset($_SESSION["item_searchres"])){
+  $test = $_SESSION["item_searchres"];
+  // var_dump($test);
+  $res= $_SESSION["item_searchres"];
+}
+unset($_SESSION['item_searchres']);
 $start_end_price=[];
 $start_price=[];
 $future_price=[];
+$genresql = "SELECT * FROM genre";
+$makersql = "SELECT * FROM maker";
+$brandsql = "SELECT * FROM brand";
+$genres= $dbh->query($genresql);
+$makers= $dbh->query($makersql);
+$brands= $dbh->query($brandsql);
 foreach($res as $value){
   $date1=new DateTime($value["fromdate"]);
   $date2=new DateTime($value["todate"]);
@@ -132,7 +144,7 @@ function get_brand_name($brand_id){
           　売価管理(商品一覧)
         </div>
         <div class="maincontents">
-          <form action="" method="get">
+          <form action="baikasearch.php" method="post">
             <div class="serchbox">
               <div class="itemname">
                 <div class="itemname_title">
@@ -146,10 +158,14 @@ function get_brand_name($brand_id){
                     ジャンル
                   </div>
                   <select name="genre">
-                    <option value="">　　　　　　　　　　　 　</option>
-                    <option value="1">ミネラル</option>
-                    <option value="2">コスメ</option>
-                    <option value="3">健康食品</option>
+                    <option value="">---　　　　　　　　　　　</option>
+<?php
+foreach($genres as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                   </select>
                 </div>
               </div>
@@ -159,10 +175,14 @@ function get_brand_name($brand_id){
                     メーカー
                   </div>
                   <select name="maker">
-                    <option value="">　　　　　　　　 　　　　 </option>
-                    <option value="1">大塚製薬</option>
-                    <option value="2">DHC</option>
-                    <option value="3">ファンケル</option>
+                  <option value="">---　　　　　　　　　　　 </option>
+<?php
+foreach($makers as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                   </select>
                 </div>
               </div>
@@ -172,14 +192,14 @@ function get_brand_name($brand_id){
                     ブランド
                   </div>
                   <select name="brand">
-                    <option value="">　　　　　　　　 　　　　 </option>
-                    <option value="1">ネイチャーメイド</option>
-                    <option value="2">DHC</option>
-                    <option value="3">FANKEL</option>
-                    <option value="4">ULOS</option>
-                    <option value="5">インナーシグナル</option>
-                    <option value="6">カロリーメイト</option>
-                    <option value="7">大塚製薬</option>
+                  <option value="">---　　　　　　　　　　　 </option>
+<?php
+foreach($brands as $value):
+?>
+                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
+<?php
+endforeach
+?>
                   </select>
                 </div>
               </div>
@@ -258,7 +278,7 @@ foreach($start_price as $value):
                 <div class="syouhinbrand">
                   <?=$value["todate"]?>
                 </div>
-                <form action="baikaedit.php" method="post">
+                <form action="baikaedit_now.php" method="post">
                   <div class="syouhinbtn">
                     <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
                     <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
@@ -353,6 +373,7 @@ foreach($future_price as $value):
                   <div class="syouhinbtn">
                     <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
                     <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
+                    <input type="hidden" name="edit_saleprice_from" value="<?=$value["fromdate"]?>">
                     <input type="submit" value="売価変更">
                   </div>
                 </form>

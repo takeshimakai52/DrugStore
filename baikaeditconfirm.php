@@ -5,6 +5,7 @@
   $saleprice = filter_input(INPUT_POST, 'saleprice');
   $fromdate = filter_input(INPUT_POST, 'fromdate');
   $todate = filter_input(INPUT_POST, 'todate');
+  $nowdate = new DateTime('now');
 
   echo $id."<br>";
   echo $itemid."<br>";
@@ -26,9 +27,15 @@
     $stmt->execute($params);
   }
 
+
+
   try{
-	  saleprice_edit($id,$itemid,$saleprice,$fromdate,$todate);
-		
+    // if($nowdate<$fromdate){
+    //   if()
+	    saleprice_edit($id,$itemid,$saleprice,$fromdate,$todate);
+    // }elseif(){
+    //   $_SESSION["saleprice_error"]="不正な日付のため登録できませんでした。"
+    // }
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
