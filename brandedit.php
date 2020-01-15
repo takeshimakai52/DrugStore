@@ -3,7 +3,7 @@
   $editid = filter_input(INPUT_POST, 'editid');
   $editname = filter_input(INPUT_POST, 'editname');
   $editmaker_id = filter_input(INPUT_POST, 'editmaker_id');
-  
+
   function maker_name($maker_id){
     $dbh=connect_db();
     $query = "SELECT * FROM maker WHERE id = :maker_id";
@@ -56,7 +56,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -65,7 +65,7 @@
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="brandeditconfirm.php" method="post">
+          <form name="brandeditconfirm" action="brandeditconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
                 ブランド情報
@@ -84,7 +84,7 @@
                   ブランド名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre" value="<?=$editname?>">
+                  <input type="text" class="textrightbox" name="genre" id="brand_edit" value="<?=$editname?>">
                 </div>
               </div>
               <div class="syouhinrow">
@@ -104,10 +104,10 @@ endforeach
                   </select>
                 </div>
               </div>
-              
+
 
               <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
+                <button type="button" name="itemsearch" class="itemserch" onclick="brand_editempty();">登録</button>
               </div>
             </div>
           </form>

@@ -3,12 +3,12 @@
 	$genre = filter_input(INPUT_POST, 'genre');
   try{
 		genre_new($genre);
-		
+
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
- 
+header('location: genre.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -52,7 +52,7 @@
 							ジャンルを登録しました
 						</div>
 						<div class="genrelink">
-						  <a href="genre.php">ジャンル一覧にも戻る</a>
+						  <a href="genre.php">ジャンル一覧に戻る</a>
 						</div>
 					</div>
         </div>

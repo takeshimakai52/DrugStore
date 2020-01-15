@@ -3,11 +3,12 @@
   $maker = filter_input(INPUT_POST, 'genre');
   try{
 		maker_new($maker);
-		
+
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
+ header('location: maker.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -51,7 +52,7 @@
 							メーカーを登録しました
 						</div>
 						<div class="genrelink">
-						  <a href="maker.php">メーカー一覧にも戻る</a>
+						  <a href="maker.php">メーカー一覧に戻る</a>
 						</div>
 					</div>
         </div>

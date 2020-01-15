@@ -40,7 +40,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -49,7 +49,7 @@
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="genreconfirm.php" method="post">
+          <form name="genreconfirm" action="genreconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
                 ジャンル情報
@@ -67,13 +67,13 @@
                   ジャンル名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
+                  <input type="text" class="textrightbox" name="genre" id="genre">
                 </div>
               </div>
-              
+
 
               <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
+                <button type="button" name="itemsearch" class="itemserch" onclick="genre_newempty();">登録</button>
               </div>
             </div>
           </form>

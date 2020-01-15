@@ -1,7 +1,7 @@
 <?php
   session_start();
   require 'common.php';
-  
+
   // 紐づくメーカー名を取得
   function maker_name($maker_id){
     $dbh=connect_db();
@@ -24,7 +24,7 @@
     $res = $_SESSION["searchres"];
   }
   unset($_SESSION['searchres']);
-  
+
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +37,7 @@
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="vali.js"></script>
   </head>
   <body>
     <div class="header">
@@ -54,7 +55,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -64,7 +65,7 @@
         <div>
         </div>
         <div class="maincontents">
-          
+
         <form action="brandsearch.php" method="post">
           <div class="serchbox">
             <div class="itemname">
@@ -148,7 +149,7 @@ foreach($res as $value):
                   <div class="syouhinbtn">
                     <input type='hidden' name='deleteid' value='<?php echo $value["id"]; ?>'>
                     <input type='hidden' name='deletename' value='<?php echo $value["name"]; ?>'>
-                    <input type="submit" value="削除">
+                    <input type="submit" value="削除" onclick='return confirm("本当に削除しますか？");'/>
                   </div>
                 </form>
               </div>

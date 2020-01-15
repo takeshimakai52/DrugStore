@@ -7,7 +7,7 @@
     echo $e->getMessage();
     die();
  }
-
+ header('location: genre.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -51,7 +51,7 @@
 							ジャンルを削除しました
 						</div>
 						<div class="genrelink">
-						  <a href="genre.php">ジャンル一覧にも戻る</a>
+						  <a href="genre.php">ジャンル一覧に戻る</a>
 						</div>
 					</div>
         </div>

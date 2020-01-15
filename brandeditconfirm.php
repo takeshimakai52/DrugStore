@@ -5,11 +5,12 @@
   $maker_id = filter_input(INPUT_POST, 'maker_id');
   try{
 	  brand_edit($brand,$maker_id,$id);
-		
+
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
+ header('location: brand.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +40,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">

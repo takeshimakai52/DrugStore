@@ -40,7 +40,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -49,7 +49,7 @@
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="makerconfirm.php" method="post">
+          <form name="makerconfirm" action="makerconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
                 メーカー情報
@@ -67,13 +67,13 @@
                   メーカー名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
+                  <input type="text" class="textrightbox" name="genre" id="maker">
                 </div>
               </div>
-              
+
 
               <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
+                <button type="button" name="itemsearch" class="itemserch" onclick="maker_newempty();">登録</button>
               </div>
             </div>
           </form>

@@ -2,14 +2,14 @@
   require 'common.php';
 	$id = filter_input(INPUT_POST, 'deleteid');
   try{
-    
+
 		brand_delete($id);
-		
+
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
-
+header('location: brand.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -53,7 +53,7 @@
 							ブランドを削除しました
 						</div>
 						<div class="genrelink">
-						  <a href="brand.php">ブランド一覧にも戻る</a>
+						  <a href="brand.php">ブランド一覧に戻る</a>
 						</div>
 					</div>
         </div>

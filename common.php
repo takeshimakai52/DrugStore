@@ -2,7 +2,7 @@
 
 function connect_db()
 {
-  $dsn = 'mysql:host=localhost;dbname=sample;charset=utf8';
+  $dsn = 'mysql:host=localhost;dbname=sample1;charset=utf8';
   $username = 'root';
   $password = '';
   $options = [
@@ -38,7 +38,7 @@ function h($string)
 
 function genre_serch($genreId, $genreName){
   $dbh=connect_db();
-  if($genreId != "" OR $genreName != ""){ 
+  if($genreId != "" OR $genreName != ""){
     // $id = filter_input(INPUT_POST, 'genreid');
     // $name = filter_input(INPUT_POST, 'genrename');
 
@@ -115,7 +115,7 @@ function genre_delete($id){
 
 function maker_serch($id, $name){
   $dbh=connect_db();
-  if($id != "" OR $name != ""){ 
+  if($id != "" OR $name != ""){
     $sqlFlg = 0;
     if(!empty($id) && empty($name)){   //IDのみパターン
       $sqlFlg = 1;
@@ -149,7 +149,7 @@ function maker_serch($id, $name){
 function maker_new($maker){
   if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') !== 'POST') {
       return false;
-  }  
+  }
   $sql = 'INSERT INTO `maker` (`id`,`name`) VALUES (NULL, :maker) ';
   $arr = [];
   $arr[':maker'] = $maker;
@@ -183,7 +183,7 @@ function maker_delete($id){
 
 function brand_serch($id, $name,$brandmaker){
   $dbh=connect_db();
-  if($id != "" OR $name != "" OR $brandmaker != ""){ 
+  if($id != "" OR $name != "" OR $brandmaker != ""){
     $sqlFlg = 0;
     if(!empty($id) && empty($name) && empty($brandmaker)){   //IDのみパターン
       $sqlFlg = 1;
@@ -267,7 +267,5 @@ function brand_edit($brand,$maker_id,$id){
   $params = array(':name' => "$brand", ':maker_id' => "$maker_id", ':id' => "$id");
   $stmt->execute($params);
 }
-
-
 
 ?>

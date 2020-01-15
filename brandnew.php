@@ -4,10 +4,10 @@
     $dbh=connect_db();
     $sql = "SELECT * FROM brand order by id desc limit 1";
     $res = $dbh->query($sql);
-    
+
     $sql2 = "SELECT * FROM maker";
     $res2 = $dbh->query($sql2);
-    
+
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
@@ -44,7 +44,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -53,7 +53,7 @@
         </div>
         <div class="maincontents">
           <div class="haku"></div>
-          <form action="brandconfirm.php" method="post">
+          <form name="brandconfirm" action="brandconfirm.php" method="post">
             <div class="touroku">
               <div class="touroku_head">
                 ブランド情報
@@ -71,7 +71,7 @@
                   ブランド名
                 </div>
                 <div class="rowright">
-                  <input type="text" class="textrightbox" name="genre">
+                  <input type="text" class="textrightbox" name="genre" id="brand">
                 </div>
               </div>
               <div class="syouhinrow">
@@ -92,7 +92,7 @@ endforeach
               </div>
 
               <div class="tourokubtn">
-                <button type="submit" name="itemsearch" class="itemserch">登録</button>
+                <button type="button" name="itemsearch" class="itemserch" onclick="brand_newempty();">登録</button>
               </div>
             </div>
           </form>

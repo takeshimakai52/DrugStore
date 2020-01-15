@@ -4,11 +4,12 @@
   $name = filter_input(INPUT_POST, 'genrename');
   try{
 		genre_edit($name,$id);
-		
+
   }catch(PDOException $e) {
     echo $e->getMessage();
     die();
  }
+ header('location: genre.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -52,7 +53,7 @@
 							ジャンルを編集しました
 						</div>
 						<div class="genrelink">
-						  <a href="genre.php">ジャンル一覧にも戻る</a>
+						  <a href="genre.php">ジャンル一覧に戻る</a>
 						</div>
 					</div>
         </div>

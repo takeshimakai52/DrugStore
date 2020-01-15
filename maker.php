@@ -9,9 +9,9 @@
   }
   unset($_SESSION['searchres']);
 
-  
- 
-  
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,7 @@
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="vali.js"></script>
   </head>
   <body>
     <div class="header">
@@ -40,7 +41,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -48,7 +49,7 @@
           　メーカー管理
         </div>
         <div class="maincontents">
-          
+
         <form action="makersearch.php" method="post">
           <div class="serchbox">
             <div class="itemname">
@@ -96,7 +97,7 @@ foreach($res as $value):
                 <div class="syouhinname">
                   <?= $value['name'] ?>
                 </div>
-                
+
                 <form action="makeredit.php" method="post">
                   <div class="syouhinbtn1">
                     <input type='hidden' name='editid' value='<?php echo $value["id"]; ?>'>
@@ -108,7 +109,7 @@ foreach($res as $value):
                   <div class="syouhinbtn">
                     <input type='hidden' name='deleteid' value='<?php echo $value["id"]; ?>'>
                     <input type='hidden' name='deletename' value='<?php echo $value["name"]; ?>'>
-                    <input type="submit" value="削除">
+                    <input type="submit" value="削除" onclick='return confirm("本当に削除しますか？");'/>
                   </div>
                 </form>
               </div>
