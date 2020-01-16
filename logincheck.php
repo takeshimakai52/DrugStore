@@ -5,7 +5,7 @@ if(isset($_SESSION['err_msg'])){
 }
 // データベースに接続するために必要なデータソースを変数に格納
 // mysql:host=ホスト名;dbname=データベース名;charset=文字エンコード
-$dsn = 'mysql:host=localhost;dbname=sumple;charset=utf8';
+$dsn = 'mysql:host=localhost;dbname=sample;charset=utf8';
 // データベースのユーザー名 パスワード
 $user = 'root';
 $password = '';
@@ -34,7 +34,7 @@ $stmt->execute();
 $count=$stmt->rowCount();
 //LOGIN成功→商品一覧画面へ　LOGIN失敗→元の画面へ　遷移させる
 if($count==1){
-  header('location: itemitiran.php');
+  header('location: item.php');
   exit;
 }elseif(isset($_POST['account']) && isset($_POST['password']) && $count !== 1){
   $err_msg = 'ログインIDかパスワードが間違っています';

@@ -113,12 +113,12 @@ function search_saleprice($item_id,$start_price,$price){
         drug takayama
       </div>
       <div class="frontlink">
-        <a href="" class="frontbtn">
+        <a href="fe_index.php" class="frontbtn">
           フロントエンド
         </a>
       </div>
       <div class="logoutbtn">
-        <a href="" class="logout">
+        <a href="login.php" class="logout">
           ログアウト
         </a>
       </div>
