@@ -118,6 +118,6 @@
 
   $_SESSION['item_searchres'] = $res;
 
-  //header("location:item.php")
+  header("location:item.php")
 
 ?>

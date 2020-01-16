@@ -181,7 +181,7 @@ function maker_delete($id){
   $stmt->execute($params);
 }
 
-function brand_serch($id, $name,$brandmaker){
+function brand_search($id, $name,$brandmaker){
   $dbh=connect_db();
   if($id != "" OR $name != "" OR $brandmaker != ""){
     $sqlFlg = 0;
