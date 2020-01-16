@@ -300,7 +300,7 @@ endforeach
 
             <div class="itemshowbox">
               <div class="baikatitle">
-                売価変更が予定されている商品
+                未来、売価変更が予定されている商品
               </div>
               <div class="itemlabel">
                 <div class="itemnum">

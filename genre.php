@@ -77,10 +77,10 @@
           <div class="itemshow">
             <div class="itemshowbox">
               <div class="itemlabel">
-								<div class="labelno">
+								<div class="itemnum">
 									No
 								</div>
-								<div class="labelname">
+								<div class="itemgenre">
 									ジャンル名
 								</div>
 
