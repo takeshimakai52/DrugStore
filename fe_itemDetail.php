@@ -151,7 +151,7 @@ function connect_db() {
     <?php foreach($res as $value): ?>
       <div class="div_item">
         <div class="detail_image">
-          <img src="./fe_img/<?= $value['filepath'] ?>" alt="" width="200" height="200">
+          <img src="<?= $value['filepath']?>" alt="" width="200" height="200">
         </div>
         <div class="detail_itemInfo">
           <h2>商品名：<?= $value['name'] ?></h2><br>

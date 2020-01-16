@@ -147,7 +147,7 @@ function connect_db() {
         <div class="div_item">
           <div class="div_image">
             <a href="/DrugStore/fe_itemDetail.php?id=<?= $value['id'] ?>">
-              <img src="./fe_img/<?= $value['filepath'] ?>" alt="" width="200" height="200">
+              <img src="<?= $value['filepath'] ?>" alt="" width="200" height="200">
             </a>
           </div>
           <div class="div_itemInfo">
