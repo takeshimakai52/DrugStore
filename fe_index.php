@@ -58,7 +58,7 @@ function connect_db() {
   </header>
 </div>
 <div class="div_sideMenu">
-  <p class="h_sideMenu">ジャンル</p>
+  <p class="h_sideMenu"><h3>ジャンル</h3></p>
   <ul>
     <a href="">
       <li>
@@ -81,7 +81,7 @@ function connect_db() {
       </li>
     </a>
   </ul>
-  <p class="h_sideMenu">メーカー</p>
+  <p class="h_sideMenu"><h3>メーカー</h3></p>
   <ul>
     <a href="">
       <li>
@@ -99,7 +99,7 @@ function connect_db() {
       </li>
     </a>
   </ul>
-  <p class="h_sideMenu">ブランド</p>
+  <p class="h_sideMenu"><h3>ブランド</h3></p>
   <ul>
     <a href="">
       <li>
@@ -138,12 +138,12 @@ function connect_db() {
     </a>
   </ul>
 </div>
-<div>
+<div class="div_productList">
   <p class="ichiranTitle">
-    商品一覧
+    <h2>商品一覧</h2>
   </p>
-  <div class="div_items">
     <?php foreach($res as $value): ?>
+      <hr>
         <div class="div_item">
           <div class="div_image">
             <a href="/DrugStore/fe_itemDetail.php?id=<?= $value['id'] ?>">
@@ -151,17 +151,19 @@ function connect_db() {
             </a>
           </div>
           <div class="div_itemInfo">
-              商品名：<?= $value['name'] ?><br>
+              <h3>商品名：<?= $value['name'] ?></h3>
+              <div class="detailInfo">
               価格：￥<?= $value['price'] ?><br>
               <dr>
               ジャンル：<?= $value['genre_name'] ?><br>
               ブランド：<?= $value['brand_name'] ?><br>
               メーカー：<?= $value['maker_name'] ?><br>
             </div>
+            </div>
               <input name="genre" type="hidden" value="<?php $value['id'] ?>">
             </div>
         <?php endforeach ?>
-      </div>
+        <hr>
     </div>
   </body>
 </html>
