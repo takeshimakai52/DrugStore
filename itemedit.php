@@ -26,7 +26,7 @@
     $editfilepath=$value["filepath"];
   }
   $disp_image='<img src="$editfilepath">';
-  
+
 
   function get_maker_name($maker_id){
     $dbh=connect_db();
@@ -40,7 +40,7 @@
     }
     return $maker_name;
   }
-  
+
   function get_genre_name($genre_id){
     $dbh=connect_db();
     $query = "SELECT * FROM genre WHERE id = :genre_id";
@@ -53,7 +53,7 @@
     }
     return $genre_name;
   }
-  
+
   function get_brand_name($brand_id){
     $dbh=connect_db();
     $query = "SELECT * FROM brand WHERE id = :brand_id";
@@ -70,7 +70,7 @@
   try{
     $dbh=connect_db();
     //$edititem = get_edititem();
-    
+
     $sql = "SELECT * FROM item order by id desc limit 1";
     $res = $dbh->query($sql);
 
@@ -117,7 +117,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -126,7 +126,7 @@
         </div>
         <div class="maincontents">
         <div class="haku"></div>
-        <form action="itemeditconfirm.php" method="post" enctype="multipart/form-data"> 
+        <form action="itemeditconfirm.php" method="post" enctype="multipart/form-data">
           <div class="touroku">
             <div class="touroku_head">
               商品情報
@@ -165,7 +165,7 @@
                   <option value="<?=$editgenreid?>"><?=get_genre_name($editgenreid)?> </option>
 <?php
 foreach($genres as $value):
-?>                 
+?>
                   <option value="<?=$value['id']?>"><?=$value['name']?></option>
 <?php
 endforeach
@@ -182,7 +182,7 @@ endforeach
                   <option value="<?=$editmakerid?>"><?=get_maker_name($editmakerid)?></option>
 <?php
 foreach($makers as $value):
-?>                 
+?>
                   <option value="<?=$value['id']?>"><?=$value['name']?></option>
 <?php
 endforeach
@@ -200,7 +200,7 @@ endforeach
                   <option value="<?=$editbrandid?>"><?=get_brand_name($editbrandid)?></option>
 <?php
 foreach($brands as $value):
-?>                 
+?>
                   <option disabled value="<?=$value['id']?>" name="brandoption<?=$value['maker_id']?>"><?=$value['name']?></option>
 <?php
 endforeach
@@ -243,10 +243,10 @@ endforeach
               </div>
             </div>
             <div class="tourokubtn">
-              <button type="submit" name="itemsearch" class="itemserch">登録</button>
+              <button type="submit" name="itemsearch" class="itemserch" onclick='return confirm("本当に変更しますか？");'/>登録</button>
             </div>
           </div>
-        </form> 
+        </form>
         </div>
 
       </div>

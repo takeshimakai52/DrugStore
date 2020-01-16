@@ -4,26 +4,14 @@ require 'common.php';
 $dbh=connect_db();
 $sql = "SELECT * FROM saleprice";
 $res = $dbh->query($sql);
-if(isset($_SESSION["item_searchres"])){
-  $test = $_SESSION["item_searchres"];
-  // var_dump($test);
-  $res= $_SESSION["item_searchres"];
-}
-unset($_SESSION['item_searchres']);
 $start_end_price=[];
 $start_price=[];
 $future_price=[];
-$genresql = "SELECT * FROM genre";
-$makersql = "SELECT * FROM maker";
-$brandsql = "SELECT * FROM brand";
-$genres= $dbh->query($genresql);
-$makers= $dbh->query($makersql);
-$brands= $dbh->query($brandsql);
 foreach($res as $value){
   $date1=new DateTime($value["fromdate"]);
   $date2=new DateTime($value["todate"]);
   $nowdate = new DateTime('now');
-  $test =[]; 
+  $test =[];
   array_push($test,$value);
   if($date1<$nowdate){
   //始まっている
@@ -136,7 +124,7 @@ function get_brand_name($brand_id){
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -144,7 +132,7 @@ function get_brand_name($brand_id){
           　売価管理(商品一覧)
         </div>
         <div class="maincontents">
-          <form action="baikasearch.php" method="post">
+          <form action="" method="get">
             <div class="serchbox">
               <div class="itemname">
                 <div class="itemname_title">
@@ -158,14 +146,10 @@ function get_brand_name($brand_id){
                     ジャンル
                   </div>
                   <select name="genre">
-                    <option value="">---　　　　　　　　　　　</option>
-<?php
-foreach($genres as $value):
-?>
-                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
-<?php
-endforeach
-?>
+                    <option value="">　　　　　　　　　　　 　</option>
+                    <option value="1">ミネラル</option>
+                    <option value="2">コスメ</option>
+                    <option value="3">健康食品</option>
                   </select>
                 </div>
               </div>
@@ -175,14 +159,10 @@ endforeach
                     メーカー
                   </div>
                   <select name="maker">
-                  <option value="">---　　　　　　　　　　　 </option>
-<?php
-foreach($makers as $value):
-?>
-                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
-<?php
-endforeach
-?>
+                    <option value="">　　　　　　　　 　　　　 </option>
+                    <option value="1">大塚製薬</option>
+                    <option value="2">DHC</option>
+                    <option value="3">ファンケル</option>
                   </select>
                 </div>
               </div>
@@ -192,14 +172,14 @@ endforeach
                     ブランド
                   </div>
                   <select name="brand">
-                  <option value="">---　　　　　　　　　　　 </option>
-<?php
-foreach($brands as $value):
-?>
-                  <option value="<?=$value["id"]?>"><?=$value["name"]?></option>
-<?php
-endforeach
-?>
+                    <option value="">　　　　　　　　 　　　　 </option>
+                    <option value="1">ネイチャーメイド</option>
+                    <option value="2">DHC</option>
+                    <option value="3">FANKEL</option>
+                    <option value="4">ULOS</option>
+                    <option value="5">インナーシグナル</option>
+                    <option value="6">カロリーメイト</option>
+                    <option value="7">大塚製薬</option>
                   </select>
                 </div>
               </div>
@@ -235,16 +215,16 @@ endforeach
                   メーカー
                 </div>
                 <div class="itembrand">
-                 from
+                  ブランド
                 </div>
                 <div class="itembrand">
-                  to
+
                 </div>
                 <div class="itembrand">
-                  
+
                 </div>
                 <div class="itembrand">
-                  
+
                 </div>
               </div>
 <?php
@@ -273,23 +253,23 @@ foreach($start_price as $value):
                   <?=get_maker_name(get_sale_item($value["item_id"])[4])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=$value["fromdate"]?>
+                  <?=get_brand_name(get_sale_item($value["item_id"])[3])?>
                 </div>
-                <div class="syouhinbrand">
-                  <?=$value["todate"]?>
-                </div>
-                <form action="baikaedit_now.php" method="post">
+                <form action="" method="GET">
+                  <div class="syouhinbtn1">
+                      <!-- <input type="submit" value="編集"> -->
+                  </div>
+                </form>
+                <form action="baikaedit.php" method="post">
                   <div class="syouhinbtn">
                     <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
                     <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
-                <form action="baikaend.php" method="post">
+                <form action="" method="GET">
                   <div class="syouhinbtn">
-                    <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
-                    <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
-                    <input type="submit" value="終了">
+                    <input type="submit" value="終了" onclick='return confirm("本当に終了しますか？");'/>
                   </div>
                 </form>
               </div>
@@ -300,7 +280,7 @@ endforeach
 
             <div class="itemshowbox">
               <div class="baikatitle">
-                未来、売価変更が予定されている商品
+                売価変更が予定されている商品
               </div>
               <div class="itemlabel">
                 <div class="itemnum">
@@ -325,16 +305,16 @@ endforeach
                   メーカー
                 </div>
                 <div class="itembrand">
-                  from
+                  ブランド
                 </div>
                 <div class="itembrand">
-                  to
+
                 </div>
                 <div class="itembrand">
-                
+
                 </div>
                 <div class="itembrand">
-                  
+
                 </div>
               </div>
 
@@ -364,23 +344,23 @@ foreach($future_price as $value):
                   <?=get_maker_name(get_sale_item($value["item_id"])[4])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=$value["fromdate"]?>
+                  <?=get_brand_name(get_sale_item($value["item_id"])[3])?>
                 </div>
-                <div class="syouhinbrand">
-                  <?=$value["todate"]?>
-                </div>
+                <form action="" method="GET">
+                  <div class="syouhinbtn1">
+                      <!-- <input type="submit" value="編集"> -->
+                  </div>
+                </form>
                 <form action="baikaedit.php" method="post">
                   <div class="syouhinbtn">
                     <input type="hidden" name="edit_saleprice_item_id" value="<?=$value["item_id"]?>">
                     <input type="hidden" name="edit_saleprice_id" value="<?=$value["id"]?>">
-                    <input type="hidden" name="edit_saleprice_from" value="<?=$value["fromdate"]?>">
                     <input type="submit" value="売価変更">
                   </div>
                 </form>
-                <form action="baikadelete.php" method="post">
+                <form action="" method="GET">
                   <div class="syouhinbtn">
-                    <input type="hidden" name="delete_saleprice_id" value="<?=$value["id"]?>">
-                    <input type="submit" value="削除">
+                    <input type="submit" value="削除" onclick='return confirm("本当に削除しますか？");'/>
                   </div>
                 </form>
               </div>
@@ -418,16 +398,16 @@ endforeach
                   メーカー
                 </div>
                 <div class="itembrand">
-                  from
+                  ブランド
                 </div>
                 <div class="itembrand">
-                  to
+
                 </div>
                 <div class="itembrand">
-                
+
                 </div>
                 <div class="itembrand">
-                  
+
                 </div>
               </div>
 
@@ -457,11 +437,13 @@ foreach($start_end_price as $value):
                   <?=get_maker_name(get_sale_item($value["item_id"])[4])?>
                 </div>
                 <div class="syouhinbrand">
-                  <?=$value["fromdate"]?>
+                  <?=get_brand_name(get_sale_item($value["item_id"])[3])?>
                 </div>
-                <div class="syouhinbrand">
-                  <?=$value["todate"]?>
-                </div>
+                <form action="" method="GET">
+                  <div class="syouhinbtn1">
+                      <!-- <input type="submit" value="編集"> -->
+                  </div>
+                </form>
                 <form action="" method="GET">
                   <div class="syouhinbtn">
                     <!-- <input type="submit" value="売価変更"> -->
@@ -476,7 +458,7 @@ foreach($start_end_price as $value):
 <?php
 endforeach
 ?>
-            </div> 
+            </div>
           </div>
         </div>
 

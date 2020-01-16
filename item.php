@@ -64,7 +64,7 @@ foreach($salepriceis as $value){
   $date1=new DateTime($value["fromdate"]);
   $date2=new DateTime($value["todate"]);
   $nowdate = new DateTime('now');
-  $test =[]; 
+  $test =[];
   array_push($test,$value);
   if($date1<$nowdate){
   //始まっている
@@ -123,7 +123,7 @@ function search_saleprice($item_id,$start_price,$price){
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -226,13 +226,13 @@ endforeach
                   ブランド
                 </div>
                 <div class="itembrand">
-                
+
                 </div>
                 <div class="itembrand">
-                
+
                 </div>
                 <div class="itembrand">
-                  
+
                 </div>
               </div>
 <?php
@@ -266,12 +266,12 @@ foreach($res as $value):
                 <form action="itemedit.php" method="POST">
                   <div class="syouhinbtn1">
                     <input type="submit" value="編集">
-                    <input type='hidden' name='editid' value='<?=$value["id"]?>'>                    
+                    <input type='hidden' name='editid' value='<?=$value["id"]?>'>
                     <input type="hidden" name="editname" value="<?=$value['name']?>">
                     <input type="hidden" name="editprice" value="<?=$value['price']?>">
                     <input type="hidden" name="editgenreid" value="<?=$value['genre_id']?>">
                     <input type="hidden" name="editmakerid" value="<?=$value['maker_id']?>">
-                    <input type="hidden" name="editbrandid" value="<?=$value['brand_id']?>">      
+                    <input type="hidden" name="editbrandid" value="<?=$value['brand_id']?>">
                   </div>
                 </form>
 <?php
@@ -297,7 +297,7 @@ endif
                 <form action="itemdelete.php" method="POST">
                   <div class="syouhinbtn">
                     <input type="hidden" name="deleteid" value='<?=$value["id"]?>'>
-                    <input type="submit" value="削除">
+                    <input type="submit" value="削除" onclick='return confirm("本当に削除しますか？");'/>
                   </div>
                 </form>
               </div>

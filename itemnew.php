@@ -34,6 +34,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="item.js"></script>
+    <script src="vali.js"></script>
   </head>
   <body>
     <div class="header">
@@ -51,7 +52,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="ohako">
 <?php include(dirname(__FILE__).'/assets/sidebar.php'); ?>
       <div class="main">
@@ -60,7 +61,7 @@
         </div>
         <div class="maincontents">
         <div class="haku"></div>
-        <form action="itemconfirm.php" method="post" enctype="multipart/form-data"> 
+        <form action="itemconfirm.php" method="post" enctype="multipart/form-data">
           <div class="touroku">
             <div class="touroku_head">
               商品情報
@@ -78,7 +79,7 @@
                 商品名
               </div>
               <div class="rowright">
-                <input type="text" class="textrightbox" name="name">
+                <input type="text" class="textrightbox" name="name" id="itemname">
               </div>
             </div>
             <div class="syouhinrow">
@@ -86,7 +87,7 @@
                 通常価格
               </div>
               <div class="rowright">
-                <input type="text" class="textrightbox" name="price">
+                <input type="text" class="textrightbox" name="price" id="price">
               </div>
             </div>
             <div class="syouhinrow">
@@ -98,7 +99,7 @@
                   <option value="">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($genres as $value):
-?>                 
+?>
                   <option value="<?=$value['id']?>"><?=$value['name']?></option>
 <?php
 endforeach
@@ -115,7 +116,7 @@ endforeach
                   <option value="" >---　　　　　　　　 　　　　 </option>
 <?php
 foreach($makers as $value):
-?>                 
+?>
                   <option value="<?=$value['id']?>"><?=$value['name']?></option>
 <?php
 endforeach
@@ -133,7 +134,7 @@ endforeach
                   <option value="misentaku">---　　　　　　　　 　　　　 </option>
 <?php
 foreach($brands as $value):
-?>                 
+?>
                   <option disabled value="<?=$value['id']?>" name="brandoption<?=$value['maker_id']?>"><?=$value['name']?></option>
 <?php
 endforeach
@@ -155,7 +156,7 @@ endforeach
                 成分
               </div>
               <div class="rowright">
-                <textarea name="seibun" rows="5" class="textrightbox" ></textarea>
+                <textarea name="seibun" rows="5" class="textrightbox" id="seibun"></textarea>
               </div>
             </div>
             <div class="syouhinrow">
@@ -167,10 +168,10 @@ endforeach
               </div>
             </div>
             <div class="tourokubtn">
-              <button type="submit" name="itemsearch" class="itemserch">登録</button>
+              <button type="submit" name="itemsearch" class="itemserch" onclick='return confirm("本当に登録しますか？");'/>登録</button>
             </div>
           </div>
-        </form> 
+        </form>
         </div>
 
       </div>
