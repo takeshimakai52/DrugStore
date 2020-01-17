@@ -36,7 +36,40 @@ function connect_db() {
   echo $e->getMessage();
   die();
 }
-
+function search_saleprice($item_id,$start_price,$price){
+  $item_id_array=array_column($start_price, 'item_id');
+  $testresult = array_search($item_id, $item_id_array);
+  if($testresult===false){
+    return $price;
+  }else{
+    return $start_price[$testresult]["saleprice"];
+  }
+}
+$sql = "SELECT * FROM saleprice";
+$salepriceis = $dbh->query($sql);
+$start_end_price=[];
+$start_price=[];
+$future_price=[];
+foreach($salepriceis as $value){
+  $date1=new DateTime($value["fromdate"]);
+  $date2=new DateTime($value["todate"]);
+  $nowdate = new DateTime('now');
+  $test =[];
+  array_push($test,$value);
+  if($date1<$nowdate){
+  //始まっている
+    if($date2<$nowdate){
+    //終わっている
+    array_push($start_end_price,$value);
+    }else{
+    //終わっていない
+    array_push($start_price,$value);
+    }
+  }else{
+  //始まっていない
+    array_push($future_price,$value);
+  }
+}
 ?>
 
 <html lang="ja">
@@ -155,7 +188,18 @@ function connect_db() {
         </div>
         <div class="detail_itemInfo">
           <h2>商品名：<?= $value['name'] ?></h2><br>
-          価格：￥<?= $value['price'] ?><br><br>
+<?php
+if(search_saleprice($value["id"],$start_price,$value["price"])==$value["price"]):
+?>
+              価格：￥<?= $value['price'] ?><br><br>
+<?php
+else:
+?>
+              価格：￥<?=search_saleprice($value["id"],$start_price,$value["price"])?><br>
+<?php
+endif
+?>
+
           <dr>
             ジャンル：<?= $value['genre_name'] ?><br><br>
             ブランド：<?= $value['brand_name'] ?><br><br>
