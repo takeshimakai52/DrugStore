@@ -49,7 +49,7 @@ function connect_db() {
   <header>
     <div class="title">
       <a name="topLink" href="/DrugStore/fe_index.php">
-        <h1>DrugStore</h1>
+        <h1>drug takayama</h1>
       </a>
     </div>
     <div class="search">
